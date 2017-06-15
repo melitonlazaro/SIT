@@ -75,10 +75,11 @@ foreach($log as $logs):
 		echo "<td>$logs->date</td>";
 		echo "</tr>";
 		}
-	
+
 ?>
 <?php endforeach;?>
 
+<h4> sa Weekend ko na sisimulan ulit -.- <h4>
 
 
 
