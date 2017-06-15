@@ -106,7 +106,8 @@ class Welcome extends CI_Controller {
 					$this->session->set_userdata($user_data);
 					$this->session->set_flashdata('correct', 'Login Success');
 					
-					
+
+
 					redirect('Welcome/loginsuccess');
 				}
 				else
@@ -119,7 +120,7 @@ class Welcome extends CI_Controller {
 		}
 	public function loginsuccess()
 	{
-		$username = $this->session->userdata('username');
+	
 
 		$this->load->view('home');
 	}
@@ -131,6 +132,39 @@ class Welcome extends CI_Controller {
 		$this->session->set_userdata('name', $tryname);
 		
 		redirect('Welcome/trysession');
+	}
+
+	public function addlog()
+	{
+		$reg_date = date('Y-m-d');
+
+		$data = array(
+			'employee' 	=>$this->input->post('employee'),
+			'department'=>$this->input->post('department'),
+			'conflict' 	=>$this->input->post('conflict'),
+			'status'	=>$this->input->post('status'),
+			'remarks'	=>$this->input->post('remarks'),
+			'tech' 		=>$this->input->post('tech'),
+			'date'		=>$reg_date
+			);
+
+		$query = $this->User_model->addlog($data);
+
+		if($query)
+		{
+			redirect('Welcome/alsuccess');
+		}
+		else
+		{
+
+		}
+
+	}
+
+	public function alsuccess()
+	{
+		$data['log'] = $this->User_model->getlog();
+		$this->load->view('daily_log', $data);
 	}
 
 

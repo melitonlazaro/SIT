@@ -83,9 +83,20 @@ public function get_user($username)
 	$query = $this->db->get('user');
 
 	return $query->row();
+}
 
+public function addlog($data)
+{
+	$this->db->insert('daily_log',$data);
 
+	return TRUE;
+}
 
+public function getlog()
+{
+	
+	$query = $this->db->select('*')->from('daily_log')->get();
+	return $query->result();
 }
 
 }
