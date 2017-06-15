@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 <br><br>
 
-<h2> IT Department Daily Log</h2>
+<h2> IT Department Daily Log</h2><br>
 <table class="table">
 
 <thead>
