@@ -6,12 +6,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  <link  href="<?php echo base_url();?>/public/css/w3.css" rel="stylesheet" type= "text/css"/>
 <link href="<?php echo base_url();?>/public/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
 <img src = "<?php echo base_url();?>/public/images/images.jpg">
-<br>
+<br /><br />
 <div class="w3-bar w3-green">
-  <a href="#" class="w3-bar-item w3-button">Home</a>
-  <a href="#" class="w3-bar-item w3-button">Home</a>
-  <a href="#" class="w3-bar-item w3-button">Home</a>
-  <a href="#" class="w3-bar-item w3-button">Home</a>
+  <a href="" class="w3-bar-item w3-button">Home</a>
+  <a href="" class="w3-bar-item w3-button">Inventory</a>
+  <a href="" class="w3-bar-item w3-button">Home</a>
+  <a href="" class="w3-bar-item w3-button">Home</a>
   <a class="w3-right">You are signed in as <?php echo $this->session->userdata('username');?> </a>
 </div>
 
@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<option value="3">3</option>
 </select>
 <br><br>
-<input type="submit" value="Submit">
+<input type="submit" value="submit">
 
 </form>
 </div>

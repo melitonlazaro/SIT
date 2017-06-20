@@ -1,0 +1,20 @@
+time out records
+-sess_id
+- employee id
+- date
+- time-in
+- time-out
+
+
+
+session_start()
+	- name
+	- last name
+	- time in
+	-date
+
+
+
+
+unset_session()
+	-time out

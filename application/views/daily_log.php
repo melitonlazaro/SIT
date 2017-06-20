@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  <link  href="<?php echo base_url();?>/public/css/w3.css" rel="stylesheet" type= "text/css"/>
 <link href="<?php echo base_url();?>/public/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
 <img src = "<?php echo base_url();?>/public/images/images.jpg">
-<br><br>
+<br /><br />	
 <div class="w3-bar w3-green">
   <a href="#" class="w3-bar-item w3-button">Home</a>
   <a href="#" class="w3-bar-item w3-button">Home</a>
@@ -47,6 +47,11 @@ foreach($log as $logs):
 		echo "<td>$logs->status</td>";
 		echo "<td>$logs->tech</td>";
 		echo "<td>$logs->date</td>";
+		echo "<td>
+				<button type='button' class='btn btn-default' aria-label='Left Align'>
+	  			<span class='glyphicon glyphicon-ok' aria-hidden='true'></span>
+				</button>
+			</td>";
 		echo "</tr>";
 		}
 	if($logs->status === "Pending")
@@ -60,6 +65,13 @@ foreach($log as $logs):
 		echo "<td>$logs->status</td>";
 		echo "<td>$logs->tech</td>";
 		echo "<td>$logs->date</td>";
+		echo "<td>
+				
+				<button type='button' class='btn btn-default' aria-label='Left Align'>
+	  			<span class='glyphicon glyphicon-ok' aria-hidden='true'></span>
+				</button>
+			
+			</td>"
 		echo "</tr>";
 		}	
 	if($logs->status === "Incomplete")
@@ -79,7 +91,7 @@ foreach($log as $logs):
 ?>
 <?php endforeach;?>
 
-<h4> sa Weekend ko na sisimulan ulit -.- <h4>
+<h4>  <h4>
 
 
 
