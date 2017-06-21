@@ -34,11 +34,11 @@ require("connect.php");
 
 <form>
 <select name="users" onchange="showUser(this.value)">
-  <option value="">Select a person:</option>
-  <option value="1">Peter Griffin</option>
-  <option value="2">Lois Griffin</option>
-  <option value="3">Joseph Swanson</option>
-  <option value="4">Glenn Quagmire</option>
+<?php
+
+$sql = "SELECT "
+
+?>
   </select>
 </form>
 <br>
