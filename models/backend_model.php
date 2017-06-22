@@ -14,7 +14,8 @@ function show_issues()
 	if( mysqli_connect_errno($conn) ){
 		echo "Error connecting to MySQL server!";
 	}
-	$sql = "Select * from daily_log limit 5";
+	$sql = "Select * from daily_log limit 
+	5";
 
 	//execute the query
 	$result = mysqli_query($conn, $sql);
