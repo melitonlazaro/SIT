@@ -14,12 +14,12 @@ if(isset($_POST["query"]))
   OR status LIKE '%".$search."%'
   OR tech LIKE '%".$search."%'
   OR date LIKE '%".$search."%'
- ";
+  LIMIT 10";
 }
 else
 {
  $query = "
-  SELECT * FROM daily_log ORDER BY id
+  SELECT * FROM daily_log ORDER BY id LIMIT 10
  ";
 }
 $result = mysqli_query($connect, $query);
