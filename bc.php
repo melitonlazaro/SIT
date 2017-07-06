@@ -20,7 +20,9 @@ if( isset($_GET['action']) ){
 		case 'confirmconcern'	:confirmconcern(); break;
 		case 'confirm_issue'	: confirm_issue(); break;
 		case 'archive_log'		: archive_log(); break;
+		case 'logsort'		: logsort(); break;
 		default: include "View-People.php";
+
 		
 	}
 }
@@ -114,10 +116,10 @@ function confirm_issue()
 
 }
 
-function test_id()
+function logsort()
 {
 	include "models/backend_model.php";
-	$request = testid();
-	include "ok.php";
+	$request = log_sort();
+	include "view-people.php";
 }
 ?>

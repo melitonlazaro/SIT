@@ -108,21 +108,92 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 col-md-offset-4">
-        <div class="input-group">
-        	<form method="POST" action="bc.php?action=search_log">
-	          <input type="text" name="search" class="form-control" placeholder="Search">
-	          <span class="input-group-btn">
-	          <button class="btn btn-default" type="button">Go! <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-          </span>
-      		</form>
-        </div><!-- /input-group -->
-      </div><!-- /.col-lg-6 -->
-    </div><!-- /row -->
+      <br>
+      <br>
+      <br>
+      <div class="container">
+     	
+		    <div class="form-inline">  
+		    	<form method="POST" action="bc.php?action=search_log">
+		        		<div class="pull-right">
+			        		<div class="form-group">
+			        			<input type="text" name="search" class="form-control" placeholder="Search">
+				    		</div>
+			        		<div class="form-group">
+					        	<button class="btn btn-default" type="button">Go! <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+			          	 	</div>
+			          	</div> 	
+		      		</form>
+		      		
+		        	<form method="POST" action="bc.php?action=logsort">
+		        		<div class="form-group">
+		        			<label for="fromsort">FROM:</label>
+		        			<input type="date" class="form-control" name="fromsort" id="fromsort">
+		        			
+		        		</div>
+		        		<div class="form-group">
+		        			<label for="tosort">TO:</label>
+		        			<input type="date" class="form-control" name="tosort" id="tosort">
+		        		</div>
+		        		<div class="form-group">
+		        			<button type="submit" name="sort" class="btn btn-default"><span class="glyphicon glyphicon-calendar"></button>
+		        		</div>
+		        	</form>
+
+		        	<div class="form-group">
+		        		<?php
+		        		if(isset($_POST["sort"]))
+		        		{
+		        				$fromsort = $_POST["fromsort"];
+								$tosort = $_POST["tosort"];					
+
+		        			echo '<form action="report_sort.php" method="POST">';
+		        			echo '<input type="hidden" value="'.$fromsort.'" name ="sortfromreport">';
+		        			echo '<input type="hidden" value="'.$tosort.'" name="sorttoreport">';
+		        			echo '<button type="submit" name="sort" class="btn btn-default"><span class="glyphicon glyphicon-print"></button>';
+
+		        		}
+		        		else
+		        		{
+		        			echo '<a href="report_all.php"><span class="glyphicon glyphicon-print"> </a>';
+		        		}
+
+		        		?>
+		        		
+
+		        		<?php 
+		        	
+		        		?>
+		
+		      			
+
+		      		</form>
+		      		</div>
+		        
+		    </div>
+
+		      		
+		    
+    
+    </div>
+
     <br />
 	
 	<div class="row">
 			<div class="cold-md-8">
+				<?php 
+				if(isset($_POST["sort"]))
+				{
+					$fromsort = $_POST["fromsort"];
+					$tosort = $_POST["tosort"];
+
+					echo '<div class="alert alert-info" role="alert">';
+					echo "You are sorting log from $fromsort to $tosort";
+					echo '</div>';
+
+				}
+
+				?>
 			<table class="table table-striped table-hover">
 			  <tr>
 					<th>ID No.</th>
@@ -253,5 +324,8 @@
 	</div>
 	
   </div> <!-- /container -->
+
+
+
 </body>
 </html>

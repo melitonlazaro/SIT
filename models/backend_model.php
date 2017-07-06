@@ -328,24 +328,6 @@ function show_it_concern()
 		return $record;
 }
 
-function testid()
-{
-	include"config.inc.php";
-	$conn = mysqli_connect($host,$user,$pass,$ojt);
-
-
-		if(mysqli_connect_errno($conn))
-		{
-			echo "Error connecting to MySQL server!";
-		}
-
-	$rowSQL = mysqli_query($conn, "SELECT MAX(id) AS max FROM daily_log;" );
-	$row = mysqli_fetch_row($rowSQL);
-
-
-	return $row;
-}
-
 function transfer_issue()
 {
 	include"config.inc.php";
@@ -401,6 +383,48 @@ function transfer_issue()
 		echo '</script>';
 	}
 
+}
+
+function log_sort()
+{
+		include"config.inc.php";
+	$conn = mysqli_connect($host,$user,$pass,$ojt);
+
+
+		if(mysqli_connect_errno($conn))
+		{
+			echo "Error connecting to MySQL server!";
+		}
+
+	$fromsort = $_POST["fromsort"];
+	$tosort = $_POST["tosort"];
+
+	$sql = "SELECT * FROM daily_log WHERE `date` between '$fromsort' and '$tosort' order by `id` desc";
+
+	$result = mysqli_query($conn, $sql);
+
+	$record = array();
+
+	if($myrow = mysqli_fetch_array($result))
+	{
+		do
+		{
+		$info = array();
+		$info["id"] = $myrow["id"];
+		$info["employee"] = $myrow["employee"];
+		$info["department"] = $myrow["department"];
+		$info["conflict"] = $myrow["conflict"];
+		$info["remarks"] = $myrow["remarks"];
+		$info["status"] = $myrow["status"];
+		$info["tech"] = $myrow["tech"];
+		$info["date"] = $myrow["date"];
+		$info["time"] = $myrow["time"];
+
+		$record[] = $info;
+		}while($myrow = mysqli_fetch_array($result));
+	}
+
+	return $record;
 }
 
 ?>

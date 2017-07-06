@@ -70,7 +70,7 @@
                           
                           <form method="POST" action="bc.php?action=confirm_issue"> 
                       <div class="modal-header">
-                             <div class="form-inline">
+                            <div class="form-inline">
                               <div class="form-group">
                                 <label for="remarks">Remarks</label>
                                 <input type="text" class="form-control" name="remarks" id="remarks">

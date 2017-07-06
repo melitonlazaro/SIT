@@ -1,8 +1,10 @@
 REMINDERS
--Link to Skype
--sorting Daily log by date/week/month
+-Link to Skype (Live Chat redirecting to Group Chat of IT Department)
+-sorting Daily log by date/week/month 
 -exporting to excel and importing to excel
 -Add screenshot to Concern(Multiple Uploads)
+-Add new Format for Log_id (Date & log id)
+
 
 To be Downloaded:
 Conspiracy by BadFrog
@@ -18,3 +20,20 @@ add - add person to the contacts
 userinfo - view user's profile
 voicemail - leave a voice message
 sendfile - send a file
+ 
+SELECT * FROM `daily_log` WHERE `date` between '2017-06-15' and '2017-07-03' order by `date` desc
+
+MAC filtering
+
+Inglourious Basterds
+
+
+if($remarks === COMPLETE)
+	{
+	echo option with complete in the first option
+	}
+
+
+Burnout - Sugarfree, pero mas maganda ung version nila Ebe Dancel, Johnoy Danao, Bullet Dumas
+
+https://sqlizer.i

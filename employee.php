@@ -52,7 +52,7 @@
 								</div>
 					<div class="panel-body">
 						<div class="form-group">
-						    <form method="POST" action="bc.php?action=addticket">	
+						    <form method="POST" action="bc.php?action=addticket" enctype="multipart/form-data">	
 						    	<input type="text" name="name" placeholder="Name" class="form-control"><br><br>
 						    	<select name="department" class="form-control">
 						    		<option>Department</option>
@@ -68,7 +68,7 @@
 						    	<textarea class="form-control" name="concern" rows="5" placeholder="Concerns"></textarea><br><br> 
 						    	<label class="btn btn-success">
 						    		Upload Screenshots
-						    	<input type="file" name="screenshot" hidden>
+						    	<input type="file" name="screenshot">
 						    	</label><br><br> 
 
 						    	<input type="submit" value="Submit Concern" class="form-control">

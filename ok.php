@@ -2,11 +2,6 @@
 
 print_r($request);
 
-$requests = 1232;
-
-echo '<br>';
-$integerIDs = array_map('intval', explode(',', $requests));
-
-
-
 ?>
+
+<a href="https://www.youtube.com/watch?v=EZ-A0W9Rs14"> Youtube </a>
