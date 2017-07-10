@@ -269,16 +269,49 @@ function add_ticket()
 	}
 
 
-	$name = $_POST["name"];
+	$ticketname = $_POST["name"];
 	$department = $_POST["department"];
 	$concern = $_POST["concern"];
 	$date = date("Y-m-d");
 	$time = date("h:i A");
 
-	$sql = "INSERT INTO it_concern VALUES (NULL, '$name', '$department', '$concern', '$date', '$time')";
+	$sql = "INSERT INTO it_concern VALUES (NULL, '$ticketname', '$department', '$concern', '$date', '$time')";
 	
-	if(mysqli_query($conn, $sql))
+	$query = mysqli_query($conn, $sql);
+
+	if($query)
 	{
+		$last_id = mysqli_insert_id($conn);
+
+		if(is_array($_FILES))   
+ 		{
+ 		 if(isset($_POST['submit']))
+ 		 	{
+			    $name       = $_FILES['file']['name'];  
+			    $temp_name  = $_FILES['file']['tmp_name'];  
+				      
+		      foreach ($_FILES['files']['name'] as $name => $value)  
+		      {  
+		           $file_name = explode(".", $_FILES['files']['name'][$name]);  
+		           $allowed_ext = array("jpg", "jpeg", "png", "gif");  
+		           if(in_array($file_name[1], $allowed_ext))  
+		           {  
+		                $new_name = md5(rand()) . '.' . $file_name[1];  
+		                $sourcePath = $_FILES['files']['tmp_name'][$name];  
+		                $targetPath = "upload/" . '-' .$new_name;  
+		                if(move_uploaded_file($sourcePath, $targetPath))  
+		                {  
+		                    $sql1 = "INSERT INTO upload VALUES (NULL, '$last_id' ,'". mysqli_real_escape_string($conn, $targetPath)."')";
+		                    $query1 = mysqli_query($conn, $sql1);
+		                }
+		            }   
+		        }
+		    }
+	    }
+		
+
+
+
 		echo '<script language="javascript">';
 		echo 'alert("Your request has been sent to IT Department, Please wait to be assisted. Thank You!")';
 		echo '</script>';
@@ -290,6 +323,8 @@ function add_ticket()
 
 
 }
+
+
 
 function show_it_concern()
 {

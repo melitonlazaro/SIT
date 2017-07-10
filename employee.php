@@ -52,7 +52,7 @@
 								</div>
 					<div class="panel-body">
 						<div class="form-group">
-						    <form method="POST" action="bc.php?action=addticket" enctype="multipart/form-data">	
+						    <form method="POST" action="bc.php?action=addticket">	
 						    	<input type="text" name="name" placeholder="Name" class="form-control"><br><br>
 						    	<select name="department" class="form-control">
 						    		<option>Department</option>
@@ -68,11 +68,15 @@
 						    	<textarea class="form-control" name="concern" rows="5" placeholder="Concerns"></textarea><br><br> 
 						    	<label class="btn btn-success">
 						    		Upload Screenshots
-						    	<input type="file" name="screenshot">
+						    	<input name="files[]" type="file" multiple />  
 						    	</label><br><br> 
 
 						    	<input type="submit" value="Submit Concern" class="form-control">
 						    </form>	
+
+						 				 
+						 
+						 
 						</div>    
 					</div>
 				</div>
@@ -83,10 +87,10 @@
 		  </div>
 		</div>
 </div>
-<a href="skype:-skype-name-?chat">Start chat</a><br>
+<a href="skype:live:jcastro_379 live:acahapay?chat">Start group chat</a><br>
 <a href="skype:-skype-name-?call">Call</a><br>
 <a href="skype:-skype-name-?add">add</a><br>
-<a href="skype:-skype-name-?userinfo">userinformation</a><br>
+<a href="skype:live:jcastro_379?userinfo">userinformation</a><br>
 <a href="skype:-skype-name-?voicemail">voicemail</a><br>
 <a href="skype:-skype-name-?sendfile">sendfile</a><br>
 

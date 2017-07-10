@@ -122,4 +122,5 @@ function logsort()
 	$request = log_sort();
 	include "view-people.php";
 }
+
 ?>

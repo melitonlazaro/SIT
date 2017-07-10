@@ -1,9 +1,11 @@
-REMINDERS
--Link to Skype (Live Chat redirecting to Group Chat of IT Department)
--sorting Daily log by date/week/month 
--exporting to excel and importing to excel
--Add screenshot to Concern(Multiple Uploads)
+REMINDERS ✓✓✓
+-Link to Skype (Live Chat redirecting to Group Chat of IT Department)✓
+-sorting Daily log by date/week/month  ✓
+-exporting to excel ✓
+-importing to excel
+-Add screenshot to Concern(Multiple Uploads)✓
 -Add new Format for Log_id (Date & log id)
+-retrieving uploaded images from database 
 
 
 To be Downloaded:
@@ -36,4 +38,13 @@ if($remarks === COMPLETE)
 
 Burnout - Sugarfree, pero mas maganda ung version nila Ebe Dancel, Johnoy Danao, Bullet Dumas
 
-https://sqlizer.i
+https://sqlizer.io
+ But looks can only take you so far. Personality and "Style" will take you much further.
+
+
+Create new table uploads (for path)
+ insert new ticket
+ get last_insert_id
+ use insert id as Foreign KEY in table Uploads
+
+ "If you can't perform, japorm"
