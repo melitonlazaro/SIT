@@ -282,36 +282,53 @@ function add_ticket()
 	if($query)
 	{
 		$last_id = mysqli_insert_id($conn);
-
-		if(is_array($_FILES))   
- 		{
- 		 if(isset($_POST['submit']))
- 		 	{
-			    $name       = $_FILES['file']['name'];  
-			    $temp_name  = $_FILES['file']['tmp_name'];  
-				      
-		      foreach ($_FILES['files']['name'] as $name => $value)  
-		      {  
-		           $file_name = explode(".", $_FILES['files']['name'][$name]);  
-		           $allowed_ext = array("jpg", "jpeg", "png", "gif");  
-		           if(in_array($file_name[1], $allowed_ext))  
-		           {  
-		                $new_name = md5(rand()) . '.' . $file_name[1];  
-		                $sourcePath = $_FILES['files']['tmp_name'][$name];  
-		                $targetPath = "upload/" . '-' .$new_name;  
-		                if(move_uploaded_file($sourcePath, $targetPath))  
-		                {  
-		                    $sql1 = "INSERT INTO upload VALUES (NULL, '$last_id' ,'". mysqli_real_escape_string($conn, $targetPath)."')";
-		                    $query1 = mysqli_query($conn, $sql1);
-		                }
-		            }   
+		if(isset($_FILES['files']))
+		{
+			    $errors= array();
+				foreach($_FILES['files']['tmp_name'] as $key => $tmp_name )
+				{
+					$file_name = $_FILES['files']['name'][$key];
+					$file_size =$_FILES['files']['size'][$key];
+					$file_tmp =$_FILES['files']['tmp_name'][$key];
+					$file_type=$_FILES['files']['type'][$key];	
+		      	
+		       	
+		        $desired_dir="user_data";
+		        if(empty($errors)==true)
+		        {
+		            if(is_dir($desired_dir)==false)
+		            {
+		                mkdir("$desired_dir", 0700);		// Create directory if it does not exist
+		            }
+		            if(file_exists("$desired_dir/".$file_name)==false)
+		            {
+		            	$path = move_uploaded_file($file_tmp,"user_data/".$file_name);
+		            	$query="INSERT into uploads  VALUES(NULL, '$last_id','$file_name') ";
+		            	mysqli_query($conn, $query);
+		              
+		            }
+		            else
+		            {
+		            	$newname = time().$file_name;		
+		           		$new_dir="user_data/".$newname;
+		                rename($file_tmp,$new_dir) ;						//rename the file if another one exist
+		             	$query="INSERT into uploads  VALUES(NULL,'$last_id','$newname') ";
+		             	mysqli_query($conn, $query);	
+		            }
+		            
+		            			
+		        }
+		        else
+		        {
+		                print_r($errors);
 		        }
 		    }
-	    }
+			if(empty($error)){
+				echo "Success";
+			}
+		}
 		
-
-
-
+	
 		echo '<script language="javascript">';
 		echo 'alert("Your request has been sent to IT Department, Please wait to be assisted. Thank You!")';
 		echo '</script>';
@@ -348,7 +365,7 @@ function show_it_concern()
 		do
 		{
 			$info = array();
-			$info["id"] = $myrow["id"];
+			$info["ticket_id"] = $myrow["ticket_id"];
 			$info["name"] = $myrow["name"];
 			$info["department"] = $myrow["department"];
 			$info["concern"] = $myrow["concern"];
@@ -459,6 +476,31 @@ function log_sort()
 		}while($myrow = mysqli_fetch_array($result));
 	}
 
+	return $record;
+}
+
+function retrieveup()
+{
+	include "config.inc.php";
+	$ticket_id = $_POST["ticket_id"];
+	$sql = "SELECT * FROM uploads WHERE ticket_id='$ticket_id' ";
+
+	$result = mysqli_query($conn, $sql);
+
+	$record = array();
+
+	if($myrow = mysqli_fetch_array($result))
+	{
+		do
+		{
+			$info = array();
+			$info["id"] = $myrow["id"];
+			$info["ticket_id"] = $myrow["ticket_id"];
+			$info["path"] = $myrow["path"];
+
+			$record[] = $info;
+		}while($myrow = mysqli_fetch_array($result));	
+	}
 	return $record;
 }
 

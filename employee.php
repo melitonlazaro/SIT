@@ -33,12 +33,12 @@
 
 			<div class="col-md-8" >
 					<div class="input-group" >
-			  		<form>
+			  		<form method="POST">
 		               <span class="input-group-btn" >
 		               <input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search...">
 		            </form>
             	</div>
-				<div id="result">
+				<div id="result" name="result">
 				<!-- Ajax table -->
 				</div>	
 			</div>
@@ -52,7 +52,7 @@
 								</div>
 					<div class="panel-body">
 						<div class="form-group">
-						    <form method="POST" action="bc.php?action=addticket">	
+						    <form method="POST" action="bc.php?action=addticket" enctype="multipart/form-data">	
 						    	<input type="text" name="name" placeholder="Name" class="form-control"><br><br>
 						    	<select name="department" class="form-control">
 						    		<option>Department</option>
@@ -68,7 +68,7 @@
 						    	<textarea class="form-control" name="concern" rows="5" placeholder="Concerns"></textarea><br><br> 
 						    	<label class="btn btn-success">
 						    		Upload Screenshots
-						    	<input name="files[]" type="file" multiple />  
+						    	<input type="file" name="files[]" multiple="" />
 						    	</label><br><br> 
 
 						    	<input type="submit" value="Submit Concern" class="form-control">
@@ -87,12 +87,14 @@
 		  </div>
 		</div>
 </div>
+
 <a href="skype:live:jcastro_379 live:acahapay?chat">Start group chat</a><br>
 <a href="skype:-skype-name-?call">Call</a><br>
 <a href="skype:-skype-name-?add">add</a><br>
 <a href="skype:live:jcastro_379?userinfo">userinformation</a><br>
 <a href="skype:-skype-name-?voicemail">voicemail</a><br>
 <a href="skype:-skype-name-?sendfile">sendfile</a><br>
+
 
 
 </html>

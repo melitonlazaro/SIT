@@ -49,7 +49,7 @@ if(isset($_FILES['files'])){
 <?php
 include "config.inc.php";
 
-$sql1 = "SELECT `path` FROM uploads WHERE `path`='13.jpg'";
+$sql1 = "SELECT `path` FROM uploads WHERE `path`='sebs - Copy.png'";
 
 $result = mysqli_query($conn, $sql1);
 
@@ -57,6 +57,7 @@ $result1 = mysqli_fetch_array($result);
 
 if($result1)
 {
+	echo '<br>';
 	echo '<img src="user_data/'.$result1["path"].'" ';
 }
 else
@@ -65,7 +66,6 @@ else
 }
 
 ?>
-
 
 
 </body>

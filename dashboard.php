@@ -32,11 +32,12 @@
   <br />
   <br />
   <br />
+
   <br><br><br>
 <table class="table table-striped table-hover">
         <tr>
-          <th>ID No.</th>
-          <th>Name</th>
+         
+          <th >Name</th>
           <th>Department</th>
           <th>Issue</th>
           <th>Date</th>
@@ -50,7 +51,7 @@
             foreach($request as $r){
               echo '
                 <tr>
-                  <td>'.$r['id'].'</td>
+               
                   <td>'.$r['name'].'</td>
                   <td>'.$r['department'].'</td>
                   <td>'.$r['concern'].'</td>
@@ -58,14 +59,19 @@
                   <td>'.$r['time'].'</td>
                   
             <td>
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmmodal-'.$r['id'].'"><span class="glyphicon glyphicon-ok"></button>
+            <div class="btn-group" role="group" aria-label="...">
+
+
+
+
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmmodal-'.$r['ticket_id'].'"><span class="glyphicon glyphicon-ok"></button>
               
-            <div id="confirmmodal-'.$r['id'].'" class="modal fade" role="admin" tabindex="-1" aria-labelledby="editLabel">
+            <div id="confirmmodal-'.$r['ticket_id'].'" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="editLabel">
                 <div class="modal-admin" role="document">
                     <div class="modal-content" style="width:70%; margin:auto;">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title" id="editLabel-'.$r['id'].'">Confirm Issue</h4>
+                            <h4 class="modal-title" id="editLabel-'.$r['ticket_id'].'">Confirm Issue</h4>
                         </div>
                           
                           <form method="POST" action="bc.php?action=confirm_issue"> 
@@ -106,30 +112,30 @@
                       <div class="modal-body">
                            
                            
-                                <input type="hidden" value="'.$r['id'].'" name="id" id="id-'.$r['id'].'">
+                                <input type="hidden" value="'.$r['ticket_id'].'" name="id" id="id-'.$r['ticket_id'].'">
                                 <div class="form-group">
                                     <label for="employee">Employee Name</label>
-                                     <input type="text" class="form-control" id="employee-'.$r['id'].'" value="'.$r['name'].'" name="name">
+                                     <input type="text" class="form-control" id="employee-'.$r['ticket_id'].'" value="'.$r['name'].'" name="name">
                                 </div>
 
                                 <div class="form-group">
                                 <label for="department">Department</label>
-                                <input type="text" class="form-control" value="'.$r['department'].'" name="department" id="department-'.$r['id'].'">
+                                <input type="text" class="form-control" value="'.$r['department'].'" name="department" id="department-'.$r['ticket_id'].'">
                                 </div>
 
                                 <div class="form-group">
                                 <label for="concern">Issue</label>
-                                <input type="text" class="form-control" value="'.$r['concern'].'" name="concern" id="concern-'.$r['id'].'">
+                                <input type="text" class="form-control" value="'.$r['concern'].'" name="concern" id="concern-'.$r['ticket_id'].'">
                                 </div>
 
                                 <div class="form-group">
                                 <label for="date">Date</label>
-                                <input type="text" class="form-control" value="'.$r['date'].'" name="datelog" id="date-'.$r['id'].'" readonly>
+                                <input type="text" class="form-control" value="'.$r['date'].'" name="datelog" id="date-'.$r['ticket_id'].'" readonly>
                                 </div>
 
                                 <div class="form-group">
                                 <label for="time">Time</label>
-                                <input type="text" class="form-control" value="'.$r['time'].'" name="timelog" time="time-'.$r['id'].'" readonly>
+                                <input type="text" class="form-control" value="'.$r['time'].'" name="timelog" time="time-'.$r['ticket_id'].'" readonly>
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-info" value="confirm" name="update">Confirm</button>
@@ -137,12 +143,12 @@
                         </div>
                         
                     </div>
-                </div>
+               </div>   
+                    
+
             </div>
-                        
-                        
-           
             </td>
+
                 </tr>';
             }
           }

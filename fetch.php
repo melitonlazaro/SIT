@@ -29,7 +29,7 @@ if(isset($_POST["query"]))
   SELECT * FROM employee 
   WHERE first_name LIKE '%".$search."%'
   OR last_name LIKE '%".$search."%' 
-  OR deparment LIKE '%".$search."%' 
+  OR department LIKE '%".$search."%' 
   OR directory LIKE '%".$search."%' 
   OR email LIKE '%".$search."%'
   OR status LIKE '%".$search."%'
@@ -44,6 +44,13 @@ else
  ;
 }
 $result = mysqli_query($connect, $query);
+
+if($result === FALSE)
+{
+  mysqli_error();
+}
+else
+{
 if(mysqli_num_rows($result) > 0)
 {
  $output .= '
@@ -88,7 +95,7 @@ else
 {
   echo "Data Not Found";
 }
-
+}
 ?>
 
 </body>

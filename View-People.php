@@ -196,7 +196,6 @@
 				?>
 			<table class="table table-striped table-hover">
 			  <tr>
-					<th>ID No.</th>
 					<th>Employee Name</th>
 					<th>Department</th>
 					<th>Issue</th>
@@ -213,7 +212,6 @@
 						foreach($request as $r){
 							echo '
 								<tr>
-									<td>'.$r['id'].'</td>
 									<td>'.$r['employee'].'</td>
 									<td>'.$r['department'].'</td>
 									<td>'.$r['conflict'].'</td>
@@ -274,7 +272,7 @@
 											  </form>
 											</div>
 										  </div>
-									`	</div>
+										</div>
 									
 											
 											<button type="button" class="btn btn-danger" data-toggle="modal" data-placement="top" data-target="#deleteissue-'.$r["id"].'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>

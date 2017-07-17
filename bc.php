@@ -21,6 +21,7 @@ if( isset($_GET['action']) ){
 		case 'confirm_issue'	: confirm_issue(); break;
 		case 'archive_log'		: archive_log(); break;
 		case 'logsort'		: logsort(); break;
+		case 'retriveuploads'	: retriveuploads(); break;
 		default: include "View-People.php";
 
 		
@@ -121,6 +122,13 @@ function logsort()
 	include "models/backend_model.php";
 	$request = log_sort();
 	include "view-people.php";
+}
+
+function retriveuploads()
+{
+	include "models/backend_model.php";
+	$request = retrieveup();
+	include "retriveupload.php";
 }
 
 ?>
