@@ -98,6 +98,7 @@ function dashboard()
 {
 	include "models/backend_model.php";
 	$request = show_it_concern();
+	$request_show_upload = retrieveup();
 	include "dashboard.php";
 }
 

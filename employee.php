@@ -1,8 +1,9 @@
 <html>
 <head>
-		
-		
+
+
 			 <meta charset="utf-8">
+
 		  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 		  <script src="js/jscookmenu.min.js"></script>
@@ -10,7 +11,7 @@
 		  <script src="js/wb.carousel.min.js"></script>
 		  <script src="js/bootstrap.js"></script>
 		  <script src="js/npm.js"></script>
-		  
+
 		  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 			<!-- Bootstrap -->
@@ -23,10 +24,11 @@
   display: none !important;
 }
 
-</style>	
-			
+</style>
+
 	</head>
 <br><br>
+
 
 <div class="container">
 		<div class="row">
@@ -40,19 +42,18 @@
             	</div>
 				<div id="result" name="result">
 				<!-- Ajax table -->
-				</div>	
+				</div>
 			</div>
 		  <div class="col-md-4">
 		  		<br><br><br>
-		  		
-
+					
 		  		<div class="panel panel-default">
 				  <div class="panel-heading">
 				    <h3 class="panel-title">IT Concerns <span class="glyphicon glyphicon-question-sign"  data-toggle="tooltip" style="float:right;" title="Tech Support Concerns? Please fill up the form to send concerns to the IT Department"></span></h3>
 								</div>
 					<div class="panel-body">
 						<div class="form-group">
-						    <form method="POST" action="bc.php?action=addticket" enctype="multipart/form-data">	
+						    <form method="POST" action="bc.php?action=addticket" enctype="multipart/form-data">
 						    	<input type="text" name="name" placeholder="Name" class="form-control"><br><br>
 						    	<select name="department" class="form-control">
 						    		<option>Department</option>
@@ -64,20 +65,20 @@
 						    		<option>Treasury</option>
 
 						    	</select><br><br>
-						    	
-						    	<textarea class="form-control" name="concern" rows="5" placeholder="Concerns"></textarea><br><br> 
+
+						    	<textarea class="form-control" name="concern" rows="5" placeholder="Concerns"></textarea><br><br>
 						    	<label class="btn btn-success">
 						    		Upload Screenshots
 						    	<input type="file" name="files[]" multiple="" />
-						    	</label><br><br> 
+						    	</label><br><br>
 
 						    	<input type="submit" value="Submit Concern" class="form-control">
-						    </form>	
+						    </form>
 
-						 				 
-						 
-						 
-						</div>    
+
+
+
+						</div>
 					</div>
 				</div>
 
@@ -101,7 +102,7 @@
 
 <script>
 $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip(); 
+    $('[data-toggle="tooltip"]').tooltip();
 });
 </script>
 

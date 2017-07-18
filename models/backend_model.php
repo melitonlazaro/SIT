@@ -416,6 +416,9 @@ function transfer_issue()
 		
 		if($sql2)
 		{
+
+
+
 			echo '<script language="javascript">';
 			echo 'alert("SUCCESS")';
 			echo '</script>';
@@ -482,8 +485,8 @@ function log_sort()
 function retrieveup()
 {
 	include "config.inc.php";
-	$ticket_id = $_POST["ticket_id"];
-	$sql = "SELECT * FROM uploads WHERE ticket_id='$ticket_id' ";
+	
+	$sql = "SELECT * FROM uploads ";
 
 	$result = mysqli_query($conn, $sql);
 
@@ -495,7 +498,7 @@ function retrieveup()
 		{
 			$info = array();
 			$info["id"] = $myrow["id"];
-			$info["ticket_id"] = $myrow["ticket_id"];
+			$info["ticket_ids"] = $myrow["ticket_id"];
 			$info["path"] = $myrow["path"];
 
 			$record[] = $info;
