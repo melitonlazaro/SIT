@@ -417,8 +417,6 @@ function transfer_issue()
 		if($sql2)
 		{
 
-
-
 			echo '<script language="javascript">';
 			echo 'alert("SUCCESS")';
 			echo '</script>';

@@ -29,7 +29,7 @@
     {
       margin: 10px;
       border: 10px solid ;
-      border-color: #00000;      
+      border-color: rgb(37, 137, 140);      
     }
 </style>
 
@@ -47,9 +47,10 @@
           <th >Name</th>
           <th>Department</th>
           <th>Issue</th>
+          <th></th>
           <th>Date</th>
           <th>Time</th>
-          <th></th>
+          
           <th>Action</th>
 
         </tr>
@@ -63,20 +64,11 @@
                   <td>'.$r['name'].'</td>
                   <td>'.$r['department'].'</td>
                   <td>'.$r['concern'].'</td>
-                  <td>'.$r['date'].'</td>
-                  <td>'.$r['time'].'</td>
-                  <td>
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal'.$r['ticket_id'].' ">
+                  <td>  <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal'.$r['ticket_id'].' ">
                         <span class="glyphicon glyphicon-picture">
                         </button>
 
-                        '
-                    ;
 
-
-
-
-                    echo '
 
                             <!-- Modal -->
                         <div class="modal fade" id="myModal'.$r['ticket_id'].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -115,7 +107,7 @@
 
 
 
-<?php
+              <?php
                 echo '
                               </div>
                               <div class="modal-footer">
@@ -128,7 +120,15 @@
 
 
 
+                  </td>
+                  <td>'.$r['date'].'</td>
+                  <td>'.$r['time'].'</td>
+              
+                   
 
+                        ';
+
+                    echo '
 
                   </td>
 
