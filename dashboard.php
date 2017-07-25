@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -31,6 +32,7 @@
       border: 10px solid ;
       border-color: rgb(37, 137, 140);      
     }
+
 </style>
 
 </head>
@@ -39,9 +41,11 @@
   <br />
   <br />
   <br />
+  
+
 
   <br><br><br>
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover table-responsive" >
         <tr>
 
           <th >Name</th>
@@ -56,7 +60,7 @@
         </tr>
         <tr>
         <?php
-        if( isset($request) && isset($request_show_upload) ){
+        if( isset($request) ){
             foreach($request as $r ){
               echo '
                 <tr>
@@ -64,13 +68,11 @@
                   <td>'.$r['name'].'</td>
                   <td>'.$r['department'].'</td>
                   <td>'.$r['concern'].'</td>
-                  <td>  <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal'.$r['ticket_id'].' ">
+                  <td>  
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal'.$r['ticket_id'].' ">
                         <span class="glyphicon glyphicon-picture">
                         </button>
-
-
-
-                            <!-- Modal -->
+                            <!-- MODAL GALLERY -->
                         <div class="modal fade" id="myModal'.$r['ticket_id'].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -84,9 +86,7 @@
                               $ticket_id = $r['ticket_id'];
                               $sql1 = " SELECT * FROM uploads WHERE `ticket_id`= $ticket_id ";
                               $result = mysqli_query($conn, $sql1);
-
                               $records = array();
-
                               if($myrow = mysqli_fetch_array($result))
                               {
                                 do
@@ -98,11 +98,11 @@
                                 }
                                 while($myrow = mysqli_fetch_array($result));
                               }
-
+                              echo '<center>';
                               foreach ($records as $img) {
-                                echo '<a target="_blank" href="user_data/'.$img['path'].'"><img height="150" width="100" src="user_data/'.$img['path'].'    "></a>';
-
+                                echo '<a target="_blank" href="user_data/'.$img['path'].'"><img height="150" width="100" class="img-thumbnail" src="user_data/'.$img['path'].'    "></a>';
                               }
+                              echo '</center>';
                                ?>
 
 
@@ -117,18 +117,10 @@
                             </div>
                           </div>
                         </div>
-
-
-
                   </td>
                   <td>'.$r['date'].'</td>
                   <td>'.$r['time'].'</td>
-              
-                   
-
-                        ';
-
-                    echo '
+        
 
                   </td>
 
@@ -186,7 +178,7 @@
                       <div class="modal-body">
 
 
-                                <input type="hidden" value="'.$r['ticket_id'].'" name="id" id="id-'.$r['ticket_id'].'">
+                                <input type="hidden" value="'.$r['ticket_id'].'" name="ticket_id" id="id-'.$r['ticket_id'].'">
                                 <div class="form-group">
                                     <label for="employee">Employee Name</label>
                                      <input type="text" class="form-control" id="employee-'.$r['ticket_id'].'" value="'.$r['name'].'" name="name">
@@ -230,7 +222,6 @@
 
         </tr>
       </table>
-
 
 
 

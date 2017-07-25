@@ -4,14 +4,6 @@ if( isset($_GET['action']) ){
 		case 'editissue'	: editissue(); break;
 		case 'addissue'		: addissue(); break;
 		case 'adminpage'	: adminpage(); break;
-		case 'mousetbl'		: mousetbl(); break;
-		case 'hubtbl'		: hubtbl(); break;
-		case 'inktbl'		: inktbl(); break;
-		case 'keyboardtbl'	: keyboardtbl(); break;
-		case 'monitortbl'	: monitortbl(); break;		
-		case 'printertbl'	: printertbl(); break;		
-		case 'projectortbl'	: projectortbl(); break;
-		case 'tonertbl' 	: tonertbl(); break;
 		case 'deleteissue'	: deleteissue(); break;
 		case 'search_log' 	: search_log(); break;
 		case 'employeepage' : employeepage(); break;
@@ -57,6 +49,7 @@ function adminpage()
 {
 	include "models/backend_model.php";
 	$request = show_issues();
+	$request_show_upload = retrieveup();
 	include "View-People.php";
 }
 
@@ -76,8 +69,6 @@ function archive_log()
 	include "View-People.php";
 
 }
-
-
 
 function employeepage()
 {

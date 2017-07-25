@@ -178,7 +178,7 @@
     </div>
 
     <br />
-	
+
 	<div class="row">
 			<div class="cold-md-8">
 				<?php 
@@ -196,6 +196,7 @@
 				?>
 			<table class="table table-striped table-hover">
 			  <tr>
+			  		<th>Ticket ID</th>
 					<th>Employee Name</th>
 					<th>Department</th>
 					<th>Issue</th>
@@ -204,6 +205,7 @@
 					<th>Tech</th>
 					<th>Date</th>
 					<th>Time</th>
+					<th>Images</th>
 					<th>Action</th>
 			  </tr>
 			  <tr>
@@ -212,6 +214,7 @@
 						foreach($request as $r){
 							echo '
 								<tr>
+									<td>'.$r['ticket_id'].'</td>
 									<td>'.$r['employee'].'</td>
 									<td>'.$r['department'].'</td>
 									<td>'.$r['conflict'].'</td>
@@ -220,6 +223,57 @@
 									<td>'.$r['tech'].'</td>
 									<td>'.$r['date'].'</td>
 									<td>'.$r['time'].'</td>
+									<td>
+										<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal'.$r['ticket_id'].' ">
+				                        <span class="glyphicon glyphicon-picture">
+				                        </button>
+				                        
+				                        <div class="modal fade" id="myModal'.$r['ticket_id'].'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				                          <div class="modal-dialog" role="document">
+				                            <div class="modal-content">
+				                              <div class="modal-header">
+				                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				                                <h4 class="modal-title" id="myModalLabel'.$r['ticket_id'].'">Modal title</h4>
+				                              </div>
+				                              <div class="modal-body">'; ?>
+				                              <?php
+				                              include "config.inc.php";
+				                              $ticket_id = $r['ticket_id'];
+				                              $sql1 = " SELECT * FROM uploads WHERE `ticket_id`= $ticket_id ";
+				                              $result = mysqli_query($conn, $sql1);
+				                              $records = array();
+				                              if($myrow = mysqli_fetch_array($result))
+				                              {
+				                                do
+				                                {
+				                                  $info = array();
+				                                  $info["ticket_id"] = $myrow["ticket_id"];
+				                                  $info["path"] = $myrow["path"];
+				                                  $records[] = $info;
+				                                }
+				                                while($myrow = mysqli_fetch_array($result));
+				                              }
+				                              echo '<center>';
+					                             foreach ($records as $img)
+					                             	{
+						                                echo '<a target="_blank" href="user_data/'.$img['path'].'"><img height="150" width="100" class="img-thumbnail" src="user_data/'.$img['path'].'    "></a>';
+						                            }
+				                              echo '</center>';
+				                               ?>
+
+
+
+				              <?php
+				                echo '
+				                              </div>
+				                              <div class="modal-footer">
+				                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				                                <button type="button" class="btn btn-primary">Save changes</button>
+				                              </div>
+				                            </div>
+				                          </div>
+				                        </div>
+									</td>
 						<td>
 						<div class="btn-group" role="group" aria-label="...">
 						  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-'.$r['id'].'" data-placement="top" title="Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></button>

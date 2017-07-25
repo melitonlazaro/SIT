@@ -25,6 +25,7 @@ function show_issues()
 		do{
 			$info = array();
 			$info['id'] = $myrow['id'];
+			$info['ticket_id'] = $myrow['ticket_id'];
 			$info['employee'] = $myrow['employee'];
 			$info['department'] = $myrow['department'];
 			$info['conflict'] = $myrow['conflict'];
@@ -38,12 +39,10 @@ function show_issues()
 	}
 	// print_r($record);
 	return $record;
-
 }
 
-
-
-function AddIssue_Mdl(){
+function AddIssue_Mdl() // User inputs value into daily log
+{
 	$conn = mysqli_connect("localhost","root","","ojt");
 
 	if( mysqli_connect_errno($conn)){
@@ -74,10 +73,10 @@ function AddIssue_Mdl(){
 		echo 'alert("Not Inserted")';
 		echo '</script>';
 	}
-
 }
 
-function EditIssue_Mdl(){
+function EditIssue_Mdl()
+{
 	$conn = mysqli_connect("localhost","root","","ojt");
 	
 	$id1=$_POST['id'];
@@ -107,8 +106,6 @@ function EditIssue_Mdl(){
 			echo '</script>';
 			// echo "Failed to Update";
 		}
-
-	
 }
 
 function archivelog()
@@ -160,12 +157,6 @@ function archivelog()
 		echo 'alert("ERROR")';
 		echo '</script>';
 	}
-		
-
-
-
-
-
 }
 
 
@@ -212,12 +203,7 @@ function searchlog()
 	}
 	// print_r($record);
 	return $record;
-
-
-
 }
-
-
 
 function show_employee()
 {
@@ -254,8 +240,6 @@ function show_employee()
 		while($myrow = mysqli_fetch_array($result));
 	}
 		return $record;
-
-
 }
 
 function add_ticket()
@@ -275,16 +259,19 @@ function add_ticket()
 	$date = date("Y-m-d");
 	$time = date("h:i A");
 
-	$sql = "INSERT INTO it_concern VALUES (NULL, '$ticketname', '$department', '$concern', '$date', '$time')";
+	$sql = "INSERT INTO tickets VALUES (NULL, '$ticketname', '$department', '$concern', '$date', '$time')";
 	
 	$query = mysqli_query($conn, $sql);
 
-	if($query)
-	{
+		echo '<script language="javascript">';
+		echo 'alert("Your request has been sent to IT Department, Please wait to be assisted. Thank You!")';
+		echo '</script>';
+	
 		$last_id = mysqli_insert_id($conn);
 		if(isset($_FILES['files']))
 		{
 			    $errors= array();
+			    $allowed_type = array('jpg', 'jpeg', 'png', 'gif', 'bmp');
 				foreach($_FILES['files']['tmp_name'] as $key => $tmp_name )
 				{
 					$file_name = $_FILES['files']['name'][$key];
@@ -292,7 +279,7 @@ function add_ticket()
 					$file_tmp =$_FILES['files']['tmp_name'][$key];
 					$file_type=$_FILES['files']['type'][$key];	
 		      	
-		       	
+
 		        $desired_dir="user_data";
 		        if(empty($errors)==true)
 		        {
@@ -300,22 +287,26 @@ function add_ticket()
 		            {
 		                mkdir("$desired_dir", 0700);		// Create directory if it does not exist
 		            }
-		            if(file_exists("$desired_dir/".$file_name)==false)
+
+		           	if( file_exists("$desired_dir/".$file_name)==true)
+		            {
+		            	$newname = time().$file_name;		
+		           		$new_dir="user_data/".$newname;
+		                move_uploaded_file($file_tmp,$new_dir) ;						//rename the file if another one exist
+		             	$query="INSERT into uploads  VALUES(NULL,'$last_id','$newname') ";
+		             	mysqli_query($conn, $query);	
+		            }
+
+		            if(file_exists("$desired_dir/".$file_name)==false )
 		            {
 		            	$path = move_uploaded_file($file_tmp,"user_data/".$file_name);
 		            	$query="INSERT into uploads  VALUES(NULL, '$last_id','$file_name') ";
 		            	mysqli_query($conn, $query);
 		              
 		            }
-		            else
-		            {
-		            	$newname = time().$file_name;		
-		           		$new_dir="user_data/".$newname;
-		                rename($file_tmp,$new_dir) ;						//rename the file if another one exist
-		             	$query="INSERT into uploads  VALUES(NULL,'$last_id','$newname') ";
-		             	mysqli_query($conn, $query);	
-		            }
-		            
+		          
+		         
+		          
 		            			
 		        }
 		        else
@@ -323,22 +314,14 @@ function add_ticket()
 		                print_r($errors);
 		        }
 		    }
-			if(empty($error)){
-				echo "Success";
-			}
+			
 		}
-		
-	
-		echo '<script language="javascript">';
-		echo 'alert("Your request has been sent to IT Department, Please wait to be assisted. Thank You!")';
-		echo '</script>';
-	}else{
+
+	else{
 		echo '<script language="javascript">';
 		echo 'alert("Error")';
 		echo '</script>';
 	}
-
-
 }
 
 
@@ -354,7 +337,7 @@ function show_it_concern()
 			echo "Error connecting to MySQL server!";
 		}
 
-	$query = "SELECT * FROM it_concern";
+	$query = "SELECT * FROM tickets";
 
 	$result = mysqli_query($conn, $query);
 
@@ -391,7 +374,7 @@ function transfer_issue()
 			echo "Error connecting to MySQL server!";
 		}
 
-	$id = $_POST["id"];
+	$id = $_POST["ticket_id"];
 	$name = $_POST["name"];
 	$department = $_POST["department"];
 	$conflict = $_POST["concern"];
@@ -405,13 +388,13 @@ function transfer_issue()
 
 	
 
-	$sql = "INSERT INTO daily_log VALUES (NULL, '$name', '$department', '$conflict', '$remarks', '$status', '$tech', '$datelog', '$timelog')";
+	$sql = "INSERT INTO daily_log VALUES (NULL,'$id' ,'$name', '$department', '$conflict', '$remarks', '$status', '$tech', '$datelog', '$timelog')";
 
 	$result = mysqli_query($conn,$sql);
 
 	if($result)
 	{
-		$sql2 = "DELETE FROM it_concern WHERE id='$id'";
+		$sql2 = "DELETE FROM tickets WHERE ticket_id='$id'";
 		$result2 = mysqli_query($conn, $sql2);
 		
 		if($sql2)
