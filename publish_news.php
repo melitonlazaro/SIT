@@ -19,8 +19,9 @@
 </head>
 <body>
 	<?php include "admin_nav.php"; ?>
+	<?php include "news_tools.php"; ?>
 	<br><br><br><br>
-		<div class="container">
+		<div class="container" id="news_container">
 			
 			<div class="form-group">
 				<form method="POST" action="bc.php?action=publishnews">
@@ -29,11 +30,11 @@
 					<br>
 					<input type="text" name="lead" class="form-control" placeholder="Lead">
 					<br>
-					<textarea class="form-control" rows="20" cols="50" placeholder="Content" name="content"></textarea>
+					<textarea class="form-control" rows="20" cols="50" placeholder="Content" name="content" id="content"></textarea>
 					<br>
 					
 					<center>
-					<input type="submit" class="btn btn-default" value="Publish">  
+					<input type="submit" class="btn btn-success" value="Publish">  
 
 
 				</form>

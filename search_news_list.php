@@ -11,15 +11,15 @@
 		<script src="js/wb.carousel.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/npm.js"></script>
-		<script src="js/pagination_news.js"></script>
-  		<link rel="shortcut icon" href="favicon.png">
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
    		<link href="css/bootstrap.min.css" rel="stylesheet">
    	<style type="text/css">
    	#jumbotron_news
    	{
    		background-color: white;
-   	
+   		color:black;
+
    	}
    	#lead
    	{
@@ -35,6 +35,7 @@
 <body>
 
 	<?php include "header_sub.php"; ?>
+
 	<center>
       
          <ol class="breadcrumb">
@@ -44,16 +45,14 @@
          </ol>
      
    </center>
-	<br>
-
-
+   <br><br><br>
 	<h1>News and Announcements</h1>
 	<div class="container">
 		<div class="container">
 			<form class="form-inline pull-right" method="POST" action="bc.php?action=searchnews">
 				<div class="form-group">
 					<label for="search_news">
-						<input type="text" class="form-control" name="search_news" >
+						<input type="text" class="form-control" name="search_news" value="<?php echo isset($_POST["search_news"]) ? $_POST["search_news"] : '';?>">
 					</label>
 				</div>
 				<div class="form-group">
@@ -64,9 +63,53 @@
 			</form>
 		</div>
 	
-		<div id="pagination_data">
-		
-		</div>
+		<?php 
+
+				if(isset($_POST["search_news"]))
+                  {
+                    $search = $_POST["search_news"];
+
+                    echo  '
+                            <div class="alert alert-info" role="alert">
+                            You are searching for the Keyword <i>"'.$search.'"</i>
+                            </div>
+                            <br>
+                          ';
+                  }
+
+			foreach ($result as $r) {
+				echo '
+						<div class="row">
+							<div class="col-md-2">
+								<br><br><br>
+								<div class="container">
+									<div class="panel-body" id="date_time">
+										'.$r["date_published"].'
+										<br>
+										'.$r["time_published"].'
+										<br>
+										<span class="glyphicon glyphicon-user"></span>&nbsp'.$r["author"].'
+									</div>
+								</div>
+							</div>
+							<div class="col-md-10">	
+								<div class="jumbotron" id="jumbotron_news">
+									<h2><b>'.$r["title"].'</b></h2>
+									<br>
+									<h6 id="lead">'.$r["lead"].'</h6>
+									<br><br>
+									<form method="POST" action="bc.php?action=show_news">
+										<input type="hidden" name="news_id" value="'.$r["announcement_id"].'">
+										<button type="submit" class="btn btn-default"> Read More </button>
+									</form>
+								</div>
+							</div>
+						</div>
+						<hr>
+					 ';
+			}
+
+		 ?>	
 	</div>
 </body>
 </html>

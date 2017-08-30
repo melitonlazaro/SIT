@@ -53,7 +53,8 @@
 					
 		  		<div class="panel panel-default">
 				    <div class="panel-heading" id="panelheading">
-					    <h3 class="panel-title">Ticket <span class="glyphicon glyphicon-question-sign"  data-toggle="tooltip" style="float:right;" title="Tech Support Concerns? Please fill up the form to send concerns to the IT Department"></span></h3>
+
+					    <h3 class="panel-title">Submit Ticket <span class="glyphicon glyphicon-question-sign"  data-toggle="tooltip" style="float:right;" title="Tech Support Concerns? Please fill up the form to send concerns to the IT Department"></span></h3>
 					</div>
 					<div class="panel-body">
 						<div class="form-group">
@@ -89,8 +90,8 @@
 
 </div>
 
+<br><br><br><br>
 
-
-
+	<?php include "footer.php"; ?>
 </body>
 </html>

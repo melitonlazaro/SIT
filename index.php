@@ -15,7 +15,8 @@
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
    		<link href="css/bootstrap.min.css" rel="stylesheet">
-   	
+  		<link rel="shortcut icon" href="favicon.png">
+   		
    		<link href="css/Dashboard.css" rel="stylesheet">
    	<style type="text/css">
    	div#myDIV 
@@ -160,32 +161,32 @@
 						
 	  			foreach ($news as $r) 
 				{
+						
 					echo '
-							<div class="col-xs-3">
-								<div class="panel panel-success " > 
-									<div class="panel-heading" >
-		   								 <h3 class="panel-title" id="news_title">'.$r["title"].'</h3>
-		  							</div>
-		  							
-									<div class="panel-body">
-										<p id="news_lead">'.$r["lead"].'</p>
-									</div>
-									<div class="panel-footer" >
-										'.$r["author"].' '.$r["date_published"].'
-									</div>
-								</div>
-							</div>
+								<a href="bc.php?id='.$r["announcement_id"].' ">
+									<div class="col-xs-3">
+										<div class="panel panel-success " > 
+											<div class="panel-heading" >
+				   								 <h3 class="panel-title" id="news_title">'.$r["title"].'</h3>
+				  							</div>
+				  							
+											<div class="panel-body">
+												<p id="news_lead">'.$r["lead"].'</p>
+											</div>
+											<div class="panel-footer" >
+												'.$r["author"].' '.$r["date_published"].'
+											</div>
+										</div>
+									</div>	
+								</a>
 						 ';
 				}
+
 				 ?>
 		
 		</div>
 	</div>	
-		<button class="btn btn-info pull-right"><a href="bc.php?action=news_list" id="view_more">View More </a></button>
-
-
-
-
+		<a href="bc.php?action=news_list" id="view_more"><button class="btn btn-info pull-right">View More </button></a>
 
 
 
@@ -193,6 +194,6 @@
 
 
 
-
+		<?php include "footer.php"; ?>
 	</body>
 </html>

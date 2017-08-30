@@ -15,8 +15,8 @@
 	<script src="js/wb.carousel.min.js"></script>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/bootstrap.min.js"></script>
-    <link href="css/Dashboard.css" rel="stylesheet">
+
+
 
 <style type="text/css">
 
@@ -88,7 +88,7 @@
     
       <a class="navbar-brand" onclick="openNav()" >
       <p ><span class="glyphicon glyphicon-menu-hamburger" style="cursor:pointer" id="hamburger_toggle"></p></a>
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="bc.php?action=index">
         <img alt="Brand" src="ergo.png" height="30px" id="ergo_logo" >
       </a>
  
@@ -109,16 +109,15 @@
 
   	<p class="closebtn" onclick="closeNav()" style="cursor:pointer">&times;</p>
   </div>
-  <a href="bc.php?action=dashboard"><span class="glyphicon glyphicon-dashboard">&nbsp Dashboard</a>
-  <a href="bc.php?action=tickets" ><span class="glyphicon glyphicon-wrench">&nbsp Technical Support</a>
-  <a href="#" ><span class="glyphicon glyphicon-list-alt">&nbsp Inventory</a>
-  <a href="bc.php?action=news"><span class="glyphicon glyphicon-comment">&nbsp News</a>
-  <a href="#"><span class="glyphicon glyphicon-file">&nbsp Report</a>
-  <a href="#" ><span class="glyphicon glyphicon-cog">&nbsp Settings</a>
-  <a href="bc.php?action=logout"><span class="glyphicon glyphicon-log-out">&nbsp Logout
-  
-      <p>&nbsp&nbsp (<?php echo $_SESSION['username']; ?>) </p>
-  
+  <a href="bc.php?action=dashboard"><span class="glyphicon glyphicon-dashboard"></span>&nbsp Dashboard</a>
+  <a href="bc.php?action=tickets" ><span class="glyphicon glyphicon-wrench"></span>&nbsp Technical Support</a>
+  <a href="bc.php?action=manage_employee"><span class="glyphicon glyphicon-user"></span>&nbsp Employee Portal</a>
+  <a href="#" ><span class="glyphicon glyphicon-list-alt"></span>&nbsp Inventory</a>
+  <a href="publish_news.php"><span class="glyphicon glyphicon-comment"></span>&nbsp News</a>
+  <a href="#"><span class="glyphicon glyphicon-file"></span>&nbsp Report</a>
+  <a href="#" ><span class="glyphicon glyphicon-cog"></span>&nbsp Settings</a>
+  <a href="bc.php?action=logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp Logout
+    <p>&nbsp&nbsp (<?php echo $_SESSION['username']; ?>) </p>
   </a>
 
 </div>
@@ -129,7 +128,7 @@
 <script>
 
 function openNav() {
-    document.getElementById("mySidenav").style.width = "200px";
+    document.getElementById("mySidenav").style.width = "220px";
 }
 
 function closeNav() {

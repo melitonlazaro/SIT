@@ -71,7 +71,7 @@ div#myDIV
 							echo '<p id="list_header"> Departments </p>';
 							 foreach ($count_department as $c) 
 							{
-								echo '<a href="bc.php?department='.$c["department"].' "> ';
+								echo '<a href="bc.php?action=manage_employees?department='.$c["department"].' "> ';
 								echo '<p>'.$c["department"].'('.$c["employee"].')</p></a>';
 							} 
 						?>
@@ -84,6 +84,12 @@ div#myDIV
 							<span class="input-group-btn" >
 							<input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search by First Name or Last Name">
 					</div>	
+					<ol class="breadcrumb">
+			            <li class="breadcrumb-item"><a href="bc.php?action=index">Home</a></li>
+			            <li class="breadcrumb-item"><?php echo $_GET['department'] ?></li>
+
+			         </ol>
+
 					<div id="result" name="result">
 						<!-- This Div is responsible for displaying the employee directory table -->
 					</div> 
@@ -102,47 +108,15 @@ div#myDIV
 <script>
 				$(document).ready(function(){
 
-				 load_data_sort();
-
-				 function load_data_sort(query)
-				 {
-				  $.ajax({
-				   url:"fetch_sort.php",
-				   method:"POST",
-				   data:{
-				   		query:query
-				   		location:location
-			   			},
-				   success:function(data)
-				   {
-				    $('#result_sort').html(data);
-				   }
-				  });
-				 }
-				 $('#search_text').keyup(function(){
-				  var search = $(this).val();
-				  if(search != '')
-				  {
-				   load_data_sort(search);
-				  }
-				  else
-				  {
-				   load_data_sort();
-				  }
-				 });
-				});
-</script>
-<script>
-				$(document).ready(function(){
-
 				 load_data();
 
 				 function load_data(query)
 				 {
 				  $.ajax({
-				   url:"fetch.php",
+				   url:"fetch_sort.php",
 				   method:"POST",
-				   data:{query:query},
+				   data:{query:query
+				   },
 				   success:function(data)
 				   {
 				    $('#result').html(data);

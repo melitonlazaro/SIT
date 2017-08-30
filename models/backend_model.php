@@ -67,7 +67,7 @@ function show_issues()
 	if( mysqli_connect_errno($conn) ){
 		echo "Error connecting to MySQL server!";
 	}
-	$sql = "Select * from daily_log ORDER BY id DESC";
+	$sql = "Select * from daily_log ORDER BY ticket_id DESC";
 
 	//execute the query
 	$result = mysqli_query($conn, $sql);
@@ -77,7 +77,6 @@ function show_issues()
 	if( $myrow=mysqli_fetch_array($result) ){
 		do{
 			$info = array();
-			$info['id'] = $myrow['id'];
 			$info['ticket_id'] = $myrow['ticket_id'];
 			$info['employee'] = $myrow['employee'];
 			$info['department'] = $myrow['department'];
@@ -104,6 +103,58 @@ function count_pending_ticket()
 	$count = mysqli_num_rows($result);
 
 	return $count;
+}
+
+function count_employee()
+{
+	$conn = mysqli_connect("localhost", "root", "", "ojt");
+	$query = "SELECT * FROM employee ";
+	$result = mysqli_query($conn, $query);
+	$count = mysqli_num_rows($result);
+	return $count;
+}
+
+function count_department()
+{
+	$conn = mysqli_connect("localhost", "root", "", "ojt");
+	$query = "SELECT DISTINCT(department), count(*) as employee FROM `employee` GROUP BY department";
+	$result = mysqli_query($conn, $query);
+
+	$record = array();
+	if($myrow = mysqli_fetch_array($result))
+	{
+		do
+		{
+			$info = array();
+			$info["department"] = $myrow["department"];
+			$info["employee"] = $myrow["employee"];
+			$record[] = $info;
+		}
+		while($myrow = mysqli_fetch_array($result));
+	}
+
+	return $record;
+}
+
+function count_location()
+{
+	$conn = mysqli_connect("localhost", "root", "", "ojt");
+	$query = "SELECT DISTINCT(location), count(*) as employee FROM `employee` GROUP BY location";
+	$result = mysqli_query($conn, $query);
+
+	$record = array();
+	if($myrow = mysqli_fetch_array($result))
+	{
+		do
+		{
+			$info = array();
+			$info["location"] = $myrow["location"];
+			$info["employee"] = $myrow["employee"]; 
+			$record[] = $info;
+		}
+		while($myrow = mysqli_fetch_array($result));
+	}
+	return $record;
 }
 
 function completed_ticket()
@@ -133,30 +184,25 @@ function AddIssue_Mdl() // User inputs value into daily log
 	if( mysqli_connect_errno($conn)){
 		echo "Error connecting to MySQL server!";
 	}
-
-	$employee= $_POST['employee'];
-	$department= $_POST['department'];
-	$conflict= $_POST['conflict'];
-	$remarks= $_POST['remarks'];
-	$status= $_POST['status'];
-	$tech= $_POST['tech'];
+	$employee = $_POST["employee"];
+	$conflict = $_POST["conflict"];
+	$remarks = $_POST["remarks"];
+	$tech = $_POST["tech"];
+	$department = $_POST["department"];
+	$status = $_POST["status"];
 	$date = date("Y-m-d");
-	$time = date("h:i A");
+	$time =date("h:i A");
 
-	// echo "'$firstname','$lastname','$middleinitial','$address1','$type'";
-	$sql= "INSERT INTO daily_log VALUES (NULL,'$employee','$department','$conflict','$remarks','$status','$tech', '$date', '$time' )";
-
-	// $result = mysqli_query($conn,$sql);
-
-	if(mysqli_query($conn, $sql))
+	$query = "INSERT INTO daily_log values(NULL, '$employee', '$department', '$conflict', '$remarks', '$status', '$tech', '$date', '$time')";
+	$result = mysqli_query($conn, $query);
+	
+	if($result)
 	{
-		echo '<script language="javascript">';
-		echo 'alert("Successfully Inserted!")';
-		echo '</script>';
-	}else{
-		echo '<script language="javascript">';
-		echo 'alert("Not Inserted")';
-		echo '</script>';
+		return $result;
+	}
+	else
+	{
+		echo("Error description: " . mysqli_error($conn));
 	}
 }
 
@@ -259,14 +305,14 @@ function searchlog()
 
 	$query = "SELECT * FROM daily_log
 	 WHERE employee LIKE '%".$search."%'
-	  OR id LIKE '%".$search."%'
+	  OR ticket_id LIKE '%".$search."%'
 	  OR department LIKE '%".$search."%' 
 	  OR conflict LIKE '%".$search."%' 
 	  OR remarks LIKE '%".$search."%' 
 	  OR status LIKE '%".$search."%'
 	  OR tech LIKE '%".$search."%'
 	  OR date LIKE '%".$search."%'
-	  AND status !='Old'
+
 	";
 	$result = mysqli_query($conn, $query);
 
@@ -274,7 +320,7 @@ function searchlog()
 	if( $myrow=mysqli_fetch_assoc($result) ){
 		do{
 			$info = array();
-			$info['id'] = $myrow['id'];
+			$info['ticket_id'] = $myrow['ticket_id']; 
 			$info['employee'] = $myrow['employee'];
 			$info['department'] = $myrow['department'];
 			$info['conflict'] = $myrow['conflict'];
@@ -349,7 +395,7 @@ function add_ticket()
 	$query = mysqli_query($conn, $sql);
 
 		echo '<script language="javascript">';
-		echo 'alert("Your request has been sent to IT Department, Please wait to be assisted. Thank You!")';
+		echo 'alert("Your request has been sent to IT Department, Please wait to be assisted. Thank You for using Ticketing System!")';
 		echo '</script>';
 	
 		$last_id = mysqli_insert_id($conn);
@@ -473,7 +519,7 @@ function transfer_issue()
 
 	
 
-	$sql = "INSERT INTO daily_log VALUES (NULL,'$id' ,'$name', '$department', '$conflict', '$remarks', '$status', '$tech', '$datelog', '$timelog')";
+	$sql = "INSERT INTO daily_log VALUES (NULL, '$name', '$department', '$conflict', '$remarks', '$status', '$tech', '$datelog', '$timelog')";
 	$result = mysqli_query($conn,$sql);
 	
 		
@@ -481,9 +527,8 @@ function transfer_issue()
 	{
 			$sql2 = "DELETE FROM tickets WHERE ticket_id='$id'";
 			$result2 = mysqli_query($conn, $sql2);
-			echo '<script language="javascript">';
-			echo 'alert("SUCCESS")';
-			echo '</script>';
+			
+			return $result2;
 	
 	}
 	else
@@ -510,7 +555,7 @@ function log_sort()
 	$fromsort = $_POST["fromsort"];
 	$tosort = $_POST["tosort"];
 
-	$sql = "SELECT * FROM daily_log WHERE `date` between '$fromsort' and '$tosort' order by `id` desc";
+	$sql = "SELECT * FROM daily_log WHERE `date` between '$fromsort' and '$tosort' order by `ticket_id` desc";
 
 	$result = mysqli_query($conn, $sql);
 
@@ -610,23 +655,20 @@ function news_lists()
 	return $record;
 }
 
-function show_clicked_news()
+function show_selected_news()
 {
 	include "config.inc.php";
-	$news_id = $_POST["news_id"];
-
-	$sql = "SELECT * FROM announcement WHERE `announcement_id` = '$news_id'";
+	$news_id = $_GET['id'];
+	$sql = "SELECT * FROM announcement WHERE `announcement_id` = '$news_id' ";
 	$query = mysqli_query($conn, $sql);
 	$result = mysqli_fetch_array($query);
-
-	
 	return $result;
 }
 
 function show_other_news()
 {
 	include "config.inc.php";
-	$news_id = $_POST["news_id"];
+	$news_id = $_GET['id'];
 
 	$sql = "SELECT * FROM `announcement` WHERE `announcement_id` != '$news_id' ORDER BY `announcement_id` DESC LIMIT 5 ";
 	$query = mysqli_query($conn, $sql);
@@ -649,4 +691,103 @@ function show_other_news()
 
 	return $record;
 }
+
+function search_news()
+{
+	include("config.inc.php");
+	$conn = mysqli_connect("localhost","root","","ojt");
+
+
+	if( mysqli_connect_errno($conn)){
+		echo "Error connecting to MySQL server!";
+	}
+
+	$search = $_POST["search_news"];
+
+	$query = "SELECT * FROM announcement
+	 WHERE author LIKE '%".$search."%'
+	  OR date_published LIKE '%".$search."%'
+	  OR time_published LIKE '%".$search."%' 
+	  OR title LIKE '%".$search."%' 
+	  OR lead LIKE '%".$search."%' 
+	  OR content LIKE '%".$search."%'
+
+	";
+	$result = mysqli_query($conn, $query);
+
+	$record = array();
+	if( $myrow=mysqli_fetch_assoc($result) ){
+		do{
+			$info = array();
+			$info['announcement_id'] = $myrow['announcement_id'];
+			$info['author'] = $myrow['author']; 
+			$info['date_published'] = $myrow['date_published'];
+			$info['time_published'] = $myrow['time_published'];
+			$info['title'] = $myrow['title'];
+			$info['lead'] = $myrow['lead'];
+			$info['content'] = $myrow['content'];
+
+			$record[] = $info;
+		}while($myrow=mysqli_fetch_array($result));
+	}
+	// print_r($record);
+	return $record;
+}
+
+function sort_locations()
+{
+	include("config.inc.php");
+	$conn = mysqli_connect("localhost","root","","ojt");
+	$location = $_GET['location'];
+	$sql = "SELECT * FROM employee WHERE `location` = '$location' ";
+	$query = mysqli_query($conn, $sql);
+	$record = array();
+	if($myrow = mysqli_fetch_array($query))
+	{
+		do
+		{
+			$info = array();
+			$info["employee_id"] = $myrow["employee_id"];
+			$info["first_name"] = $myrow["first_name"];
+			$info["last_name"] = $myrow["last_name"];
+			$info["department"] = $myrow["department"];
+			$info["location"] = $myrow["location"];
+			$info["directory"] = $myrow["directory"];
+			$info["email"] = $myrow["email"];
+			$info["status"] = $myrow["status"];
+			$record[] = $info;
+		}
+		while($myrow = mysqli_fetch_array($query));
+	}
+	return $record;
+}
+
+function sort_departments()
+{
+	include("config.inc.php");
+	$conn = mysqli_connect("localhost","root","","ojt");
+	$location = $_GET['deparment'];
+	$sql = "SELECT * FROM employee WHERE `location` = '$location' ";
+	$query = mysqli_query($conn, $sql);
+	$record = array();
+	if($myrow = mysqli_fetch_array($query))
+	{
+		do
+		{
+			$info = array();
+			$info["employee_id"] = $myrow["employee_id"];
+			$info["first_name"] = $myrow["first_name"];
+			$info["last_name"] = $myrow["last_name"];
+			$info["department"] = $myrow["department"];
+			$info["location"] = $myrow["location"];
+			$info["directory"] = $myrow["directory"];
+			$info["email"] = $myrow["email"];
+			$info["status"] = $myrow["status"];
+			$record[] = $info;
+		}
+		while($myrow = mysqli_fetch_array($query));
+	}
+	return $record;
+}
+//SELECT DISTINCT(department), count(*) FROM `employee` GROUP BY department
 ?>

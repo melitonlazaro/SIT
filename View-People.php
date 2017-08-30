@@ -9,7 +9,10 @@
   <script src="js/wb.carousel.min.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/npm.js"></script>
- <!-- Bootstrap -->
+  
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Bootstrap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -17,7 +20,7 @@
 
 </head>
 <body>
-  <?php include "admin_nav.php"; ?>
+
  <br><br><br>
   <div class="container">
     	

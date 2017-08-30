@@ -9,9 +9,9 @@ if( isset($_GET['action']) ){
 		case 'deleteissue'	: deleteissue(); break;
 		case 'search_log' 	: search_log(); break;
 		case 'employeepage' : employeepage(); break;
+		case 'manage_employees'	: manage_employees(); break;
 		case 'addticket'	: addticket(); break;
 		case 'dashboard'	: dashboard(); break;
-		case 'confirmconcern'	:confirmconcern(); break;
 		case 'confirm_issue'	: confirm_issue(); break;
 		case 'archive_log'		: archive_log(); break;
 		case 'logsort'		: logsort(); break;
@@ -20,17 +20,30 @@ if( isset($_GET['action']) ){
 		case 'login'		: login(); break;
 		case 'logout'		: logout(); break;
 		case 'ticketpage'	: ticketpage(); break;
-		case 'news'			: news(); break;
 		case 'publishnews'	: publishnews(); break;
 		case 'news_list'	: news_list(); break;
 		case 'show_news'	: show_news(); break; 
-		default: index();
+		case 'searchnews'	: searchnews(); break;
 
-		
+		default: index();
 	}
 }
+if(isset($_GET['id'])) //if isset the Announcement ID -> will display the announcement
+{
+	select_news();
+}
 
-function index()
+if(isset($_GET['location']))
+{
+	sort_location();
+}
+
+if(isset($_GET['department']))
+{
+	sort_department();
+}
+
+function index() //index function for employee interface
 {
 	include_once "models/backend_model.php";
 	$news = index_function();
@@ -38,7 +51,7 @@ function index()
 
 }
 
-function dashboard()
+function dashboard() //displays the dashboard for admin panel
 {
 	include_once "models/backend_model.php";
 	$request = show_it_concern();
@@ -46,10 +59,11 @@ function dashboard()
 	$pending_ticket_count = count_pending_ticket();
 	$completed_ticket = completed_ticket();
 	$incomplete_ticket = incomplete_ticket();
+	$employee_count = count_employee();
 	include_once "dashboard.php";
 }
 
-function faq()
+function faq() //displays the FAQs for technical concern
 {
 	include "faq.php";
 }
@@ -60,7 +74,7 @@ function login()
 	$result = user_login();
 	if($result)
 	{
-		dashboard();
+		header("Location: http://localhost/SIT-branch3/bc.php?action=dashboard");
 	}
 	else
 	{
@@ -81,16 +95,27 @@ function logout()
 {
 	session_start();
 	session_destroy();
-	index();
+	header("Location: http://localhost/SIT-branch3/bc.php?action=index");
 }
 
-function ticketpage()
+function ticketpage() //displays the Form for Add Ticket for Employees
 {
+	session_start();
 	include "addticket.php";
 
 }
 
-function deleteissue()
+function addticket() //submits the ticket form filled up by employee
+{
+	include "models/backend_model.php";
+	$result = add_ticket();
+	if()
+	header("Location: http://localhost/SIT-branch3/bc.php?action=index");
+	
+	
+}
+
+function deleteissue() //delete tech concern from admin panel
 {
 	include "models/backend_model.php";
 	deleteissue_mdl();
@@ -98,16 +123,22 @@ function deleteissue()
 	include "View-People.php";
 }
 
-function addissue()
+function addissue() //add tech concern from admin panel
 {
 	include "models/backend_model.php";
-	AddIssue_Mdl();
-	$request= show_issues();
-	include "View-People.php";
+	$result = AddIssue_Mdl();
+	if($result)
+	{
+		tickets();
+	}
+	else
+	{
+
+	}
+
 }
 
-
-function editissue()
+function editissue() //edit issue from admin panel
 {
 	include "models/backend_model.php";
 	EditIssue_Mdl();
@@ -115,23 +146,23 @@ function editissue()
 	include "View-People.php";
 }
 
-function tickets()
+function tickets() //displays the table for tech concerns
 {
-	include "models/backend_model.php";
+	include_once "models/backend_model.php";
 	$request = show_issues();
 	$request_show_upload = retrieveup();
-	include "View-People.php";
+	include_once "it_log.php";
 }
 
 
-function search_log()
+function search_log() //search tech concerns
 {
 	include "models/backend_model.php";
 	$request = searchlog();
-	include "View-People.php";
+	include "it_log_search.php";
 }
 
-function archive_log()
+function archive_log() //archive logs
 {
 	include "models/backend_model.php";
 	archivelog();
@@ -147,38 +178,38 @@ function employeepage()
 	include "employee.php";
 }
 
-function addticket()
+function manage_employees() //sort employee by DEPARTMENT
 {
-	include "models/backend_model.php";
-	
-	$result = add_ticket();
-	index();
-	
+	session_start();
+	$dept = $_GET['department'];
+	include "manage_employee.php";
 }
 
 
 
-function confirmconcern()
+function confirm_issue() //transfers tech concern from dashboard to tech concern table
 {
 	include "models/backend_model.php";
-	$request = show_it_concern();
-	include "dashboard.php";
+	$result = transfer_issue();
+	if($result)
+	{
+		echo '<script language="javascript">';
+		echo 'alert("SUCCESS")';
+		echo '</script>';
+		header("Location: http://localhost/SIT-branch3/bc.php?action=dashboard");
+	}
+	else
+	{
+		die();
+	}
+
 }
 
-function confirm_issue()
-{
-	include "models/backend_model.php";
-	transfer_issue();
-	$request = show_issues();
-	include "view-people.php";
-
-}
-
-function logsort()
+function logsort() //sort by date the tech concern tables
 {
 	include "models/backend_model.php";
 	$request = log_sort();
-	include "view-people.php";
+	include "it_log_search.php";
 }
 
 function retriveuploads()
@@ -188,13 +219,16 @@ function retriveuploads()
 	include "retriveupload.php";
 }
 
-function ergoemployee()
+function ergoemployee() //Employee Directory
 {
+	include "models/backend_model.php";
+	$count_department = count_department();
+	$count_location = count_location();
 	include "ergoemployee.php";
 }
 
 
-function publishnews()
+function publishnews() //publish news/announcements from IT Department
 {
 	include "models/backend_model.php";
 	$result = publish_news();
@@ -208,20 +242,47 @@ function publishnews()
 	}
 }
 
-function news_list()
+function news_list() //displays the news list for the employees
 {
 	include "models/backend_model.php";
 	$result = news_lists();
 	include "news_lists.php";
 }
 
-function show_news()
+function searchnews()
 {
 	include "models/backend_model.php";
-	$result = show_clicked_news();
+	$result = search_news();
+	include "search_news_list.php";
+}
+
+function select_news()
+{
+	$id = $_GET['id'];
+	include "models/backend_model.php";
+	$result = show_selected_news();
 	$other_news = show_other_news();
-	
 	include "view_news.php";
+}
+
+function sort_location()
+{
+	include "models/backend_model.php";
+	$count_department = count_department();
+	$count_location = count_location();
+	$result_sort_location = sort_locations();
+	include "ergoemployee_sort.php";
+
+}
+
+function sort_department()
+{
+	include "models/backend_model.php";
+	$count_department = count_department();
+	$count_location = count_location();
+	$result_sort_location = sort_departments();
+	include "ergoemployee_sort_employee.php";
+
 }
 
 ?>

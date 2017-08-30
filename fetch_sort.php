@@ -25,17 +25,17 @@ if(isset($_POST["query"]))
 {
 
  $search = mysqli_real_escape_string($connect, $_POST["query"]);
+ $location = $_GET['location'];
  $query = "
   SELECT * FROM employee 
   WHERE first_name LIKE '%".$search."%'
   OR last_name LIKE '%".$search."%' 
-
- 
- ";
+  AND location = '$location'
+  ";
 }
 else
 {
-
+ $location = $_GET['location'];
  $query = "
  SELECT * FROM employee ORDER BY employee_id"
  ;
@@ -79,6 +79,7 @@ if(mysqli_num_rows($result) > 0)
     <td>'.$row["status"].'</td>
 
    </tr>
+
   ';
  }
        

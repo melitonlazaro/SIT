@@ -1,3 +1,16 @@
+<?php 
+//index.php
+$connect = mysqli_connect("localhost", "root", "", "ojt");
+$query = "SELECT COUNT(1) AS ticket, DATE(date) as date FROM daily_log WHERE date between '2017-07-01' and '2017-08-30' GROUP BY DATE(date) LIMIT 0 , 30";
+$result = mysqli_query($connect, $query);
+$chart_data = '';
+while($row = mysqli_fetch_array($result))
+{
+ $chart_data .= "{ date:'".$row["date"]."', ticket:".$row["ticket"]."}, ";
+}
+$chart_data = substr($chart_data, 0, -2);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +20,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="js/jscookmenu.min.js"></script>
   <script src="js/jquery-1.12.4.min.js"></script>
+
   <script src="js/wb.carousel.min.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/npm.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/morris.css">
+  <script src="js/raphael-min.js"></script>
+  <script src="js/morris.min.js"></script>
 
    
 
@@ -25,13 +41,13 @@
     }
   #panels_pending
   {
-    background-color: #ffae19;
+    background-color: #f39c12;
     color:white;
     border-radius: 10px;
   }
   #panel-footer-pending
   {
-    background-color: #ffae19;
+    background-color: #f39c12;
     color:white;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius:10px;
@@ -76,7 +92,7 @@
   #title
   {
     font-family: Arial;
-    font-size: 14px;
+    font-size: 17px;
   }
   #ticketcontainer
   {
@@ -87,6 +103,15 @@
   {
     width: 100%;
     background-color:white;
+  }
+  #tablehead
+  {
+    color:white;
+    background-color: #343d46;
+  }
+  #chart
+  {
+    background-color: white;
   }
  
 </style>
@@ -99,7 +124,7 @@
 
 <div class="container-fluid" id="ticketcontainer">
 
-  <h1> <span class="glyphicon glyphicon-earphone" style="opacity:0.5"></span> Ticketing System </h1>
+  <h1><i> <span class="glyphicon glyphicon-dashboard"></span></i> Dashboard </h1>
 
   <br><br>
   <div class="row">  
@@ -107,7 +132,7 @@
       <div class="panel panel-default" id="panels_pending">
         <div class="panel-body">
           <h6 id="title"><b>Pending Tickets</b></h6>
-          <h5><?php echo $pending_ticket_count; ?>  <span class="glyphicon glyphicon-tasks" id="glyph" aria-hidden="true"></span></h5>
+          <h3><?php echo $pending_ticket_count; ?>  <span class="glyphicon glyphicon-tasks" id="glyph" aria-hidden="true"></span></h3>
         </div>
         <div class="panel-footer" id="panel-footer-pending">
           <h6>Number of Pending Tickets</h6>
@@ -119,7 +144,7 @@
       <div class="panel panel-default" id="panels_solved"> 
         <div class="panel-body">
          <h6 id="title"><b>Solved Tickets</b></h6>
-         <h5><?php echo $completed_ticket; ?>  <span class="glyphicon glyphicon-tasks" id="glyph" aria-hidden="true"></span></h5>
+         <h3><?php echo $completed_ticket; ?>  <span class="glyphicon glyphicon-tasks" id="glyph" aria-hidden="true"></span></h3>
         </div>
         <div class="panel-footer" id="panel-footer-solved">
           <h6>Solved Tickets (<?php echo date("Y-m-d"); ?>)</h6>
@@ -132,7 +157,7 @@
       <div class="panel panel-default" id="panels_unsolved">
         <div class="panel-body">
          <h6 id="title"><b>Unsolved Tickets</b></h6>
-         <h5><?php echo $incomplete_ticket; ?> <span class="glyphicon glyphicon-tasks" id="glyph" aria-hidden="true"></span></h5>
+         <h3><?php echo $incomplete_ticket; ?> <span class="glyphicon glyphicon-tasks" id="glyph" aria-hidden="true"></span></h3>
         </div>
         <div class="panel-footer" id="panel-footer-unsolved">
           <h6>Number of Unsolved Tickets</h6>
@@ -141,33 +166,30 @@
     </div>
 
     <div class="col-md-3">
-      <div class="panel panel-default" id="panels">
+      <div class="panel panel-default" id="panels_solved"> 
         <div class="panel-body">
-         <h6 id="title"><b>Tickets</b></h6>
-         <h5>7  <span class="glyphicon glyphicon-tasks" id="glyph" aria-hidden="true"></span>
-  
-         </h5>
+         <h6 id="title"><b>Employees</b></h6>
+         <h3><?php echo $employee_count; ?>  <span class="glyphicon glyphicon-user" id="glyph" aria-hidden="true"></span></h3>
         </div>
-        <div class="panel-footer" id="panel-footer">
-          <h6>Number of Pending Tickets</h6>
+        <div class="panel-footer" id="panel-footer-solved">
+          <h6>Employee Number(<?php echo date("Y-m-d"); ?>)</h6>
         </div>
       </div>
     </div>
-
-
   </div>
 
 
 
   <br><br><br>
 <div class="container">
-<table class="table table-hover table-responsive" id="tickettable" >
-        <tr>
+  <h2>Pending Tickets </h2>
+<table class="table table-hover table-responsive table-bordered" id="tickettable" >
+        <tr id="tablehead">
           <th>Ticket ID</th>
           <th >Name</th>
           <th>Department</th>
           <th>Issue</th>
-          <th></th>
+          <th>Image</th>
           <th>Date</th>
           <th>Time</th>
           <th>Action</th>
@@ -333,14 +355,26 @@
                 </tr>';
             }
           }
+      
           ?>
 
         </tr>
       </table>
+      <div class="container">
+        <h2> Number of Tickets </h2>
+        <div id="chart"></div>
+      </div>
  </div>
 </div>
-
-
-
-
 </body></html>
+<script>
+Morris.Bar({
+ element : 'chart',
+ data:[<?php echo $chart_data; ?>],
+ xkey:'date',
+ ykeys:['ticket'],
+ labels:['Tickets'],
+ hideHover:'auto',
+ stacked:true
+});
+</script>
