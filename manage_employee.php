@@ -3,10 +3,6 @@
 	<title></title>
 </head>
 <body>
-ewqeqwewqewq
-
-
-<?php echo $dept;
-?>
+<?php include "admin_nav.php"; ?>
 </body>
 </html>

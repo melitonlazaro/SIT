@@ -244,7 +244,7 @@ $chart_data = substr($chart_data, 0, -2);
 
 
 
-              <?php
+              <?php // MODAL FOOTER
                 echo '
                               </div>
                               <div class="modal-footer">
@@ -264,10 +264,8 @@ $chart_data = substr($chart_data, 0, -2);
             <td>
             <div class="btn-group" role="group" aria-label="...">
 
-
-
-
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmmodal-'.$r['ticket_id'].'"><span class="glyphicon glyphicon-ok"></button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmmodal-'.$r['ticket_id'].'"><span class="glyphicon glyphicon-ok"></span></button>
+            <button type="button" name="delete" id="'.$r['ticket_id'].'" class=" delete btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
 
             <div id="confirmmodal-'.$r['ticket_id'].'" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="editLabel">
                 <div class="modal-admin" role="document">
@@ -377,4 +375,36 @@ Morris.Bar({
  hideHover:'auto',
  stacked:true
 });
+</script>
+<script>
+  $(function(){
+    $(".delete").click(function(){
+      var del_id = $(this).attr('id');
+      var $ele = $(this).parent().parent().parent();
+
+      if(confirm("Delete this Ticket?"))
+      {
+        $.ajax({
+          type:'POST',
+          url:'deleteticket.php',
+          data:{'del_id':del_id},
+          success:function(data){
+            if(data=="YES")
+            {
+              $ele.fadeOut().remove();
+            }
+            else
+            {
+              alert("Can't delete the row");
+            }
+          }
+        });
+      }
+      else
+      {
+        return false;
+      }
+
+    });
+  });
 </script>

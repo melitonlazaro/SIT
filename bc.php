@@ -9,7 +9,7 @@ if( isset($_GET['action']) ){
 		case 'deleteissue'	: deleteissue(); break;
 		case 'search_log' 	: search_log(); break;
 		case 'employeepage' : employeepage(); break;
-		case 'manage_employees'	: manage_employees(); break;
+		case 'manage_employee'	: manage_employee(); break;
 		case 'addticket'	: addticket(); break;
 		case 'dashboard'	: dashboard(); break;
 		case 'confirm_issue'	: confirm_issue(); break;
@@ -109,9 +109,15 @@ function addticket() //submits the ticket form filled up by employee
 {
 	include "models/backend_model.php";
 	$result = add_ticket();
-	if()
-	header("Location: http://localhost/SIT-branch3/bc.php?action=index");
+	if($result)
+	{
+	echo "<meta http-equiv='Refresh' content='.5; URL=bc.php?action=index'>";
+	}
+	else
+	{
+	echo "<meta http-equiv='Refresh' content='.5; URL=bc.php?action=index'>";
 	
+	}
 	
 }
 
@@ -178,10 +184,9 @@ function employeepage()
 	include "employee.php";
 }
 
-function manage_employees() //sort employee by DEPARTMENT
+function manage_employee() //sort employee by DEPARTMENT
 {
 	session_start();
-	$dept = $_GET['department'];
 	include "manage_employee.php";
 }
 
