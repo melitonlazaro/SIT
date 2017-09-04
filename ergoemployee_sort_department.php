@@ -89,10 +89,40 @@ div#myDIV
 			            <li class="breadcrumb-item"><?php echo $_GET['department'] ?></li>
 
 			         </ol>
+		        		<table class="table table-hover table-responsive table-bordered" id="tickettable" >
+						        <tr id="tablehead">
+						        	<th>First Name</th>
+							        <th>Last Name</th>
+							        <th>Department</th>
+							        <th>Location</th>
+							        <th>Local Directory</th>
+							        <th colspan="2">Email</th>          
+							        <th>Status</th>
 
-					<div id="result" name="result">
-						<!-- This Div is responsible for displaying the employee directory table -->
-					</div> 
+						        </tr>
+						    <?php 
+							    if(isset($result_sort_location)) 
+							    {
+							    	foreach ($result_sort_location as $sd) 
+							    	{
+							    		echo '
+							    			<tr>
+											    <td>'.$sd["first_name"].'</td>
+											    <td>'.$sd["last_name"].'</td>
+											    <td>'.$sd["department"].'</td>
+											    <td>'.$sd["location"].'</td>
+											    <td>'.$sd["directory"].'</td>
+											    <td>'.$sd["email"].'</td>
+											    <td><a href="mailto: '.$sd["email"].' " ><span class="glyphicon glyphicon-envelope"></a></td>
+											    <td>'.$sd["status"].'</td>
+
+											</tr>
+							    			 ';
+							    	}
+							    }
+
+						    ?>
+						</table>
 				</div>
 			</div>	
 		</div>
@@ -105,34 +135,4 @@ div#myDIV
 	<?php include "footer.php"; ?>
 </body>
 </html>
-<script>
-				$(document).ready(function(){
 
-				 load_data();
-
-				 function load_data(query)
-				 {
-				  $.ajax({
-				   url:"fetch_sort.php",
-				   method:"POST",
-				   data:{query:query
-				   },
-				   success:function(data)
-				   {
-				    $('#result').html(data);
-				   }
-				  });
-				 }
-				 $('#search_text').keyup(function(){
-				  var search = $(this).val();
-				  if(search != '')
-				  {
-				   load_data(search);
-				  }
-				  else
-				  {
-				   load_data();
-				  }
-				 });
-				});
-</script>

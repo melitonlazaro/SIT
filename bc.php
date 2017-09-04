@@ -277,7 +277,6 @@ function sort_location()
 	$count_location = count_location();
 	$result_sort_location = sort_locations();
 	include "ergoemployee_sort.php";
-
 }
 
 function sort_department()
@@ -288,6 +287,18 @@ function sort_department()
 	$result_sort_location = sort_departments();
 	include "ergoemployee_sort_employee.php";
 
+}
+
+function search_directory()
+{
+	 if(isset($count_location)) 
+	 {
+	 	include "ajaxdelete.php";
+	 }
+	 else
+	 {
+	 	die();
+	 }
 }
 
 ?>

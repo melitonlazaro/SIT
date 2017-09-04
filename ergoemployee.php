@@ -10,7 +10,7 @@
 		<script src="js/wb.carousel.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/npm.js"></script>
-
+		<script src="js/pagination_directory.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
    		<link href="css/bootstrap.min.css" rel="stylesheet">
    		<script src="js/bootstrap.min.js"></script>
@@ -80,11 +80,12 @@ div#myDIV
 				</div>
 				<div class="col-md-10" >
 					<div class="form-group" >
-						
+						<form action="bc.php?action=search_directory">
 							<span class="input-group-btn" >
 							<input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search by First Name or Last Name">
+						</form>
 					</div>	
-					<div id="result" name="result">
+					<div id="pagination_data" name="result">
 						<!-- This Div is responsible for displaying the employee directory table -->
 					</div> 
 				</div>
@@ -99,66 +100,4 @@ div#myDIV
 	<?php include "footer.php"; ?>
 </body>
 </html>
-<script>
-				$(document).ready(function(){
 
-				 load_data_sort();
-
-				 function load_data_sort(query)
-				 {
-				  $.ajax({
-				   url:"fetch_sort.php",
-				   method:"POST",
-				   data:{
-				   		query:query
-				   		location:location
-			   			},
-				   success:function(data)
-				   {
-				    $('#result_sort').html(data);
-				   }
-				  });
-				 }
-				 $('#search_text').keyup(function(){
-				  var search = $(this).val();
-				  if(search != '')
-				  {
-				   load_data_sort(search);
-				  }
-				  else
-				  {
-				   load_data_sort();
-				  }
-				 });
-				});
-</script>
-<script>
-				$(document).ready(function(){
-
-				 load_data();
-
-				 function load_data(query)
-				 {
-				  $.ajax({
-				   url:"fetch.php",
-				   method:"POST",
-				   data:{query:query},
-				   success:function(data)
-				   {
-				    $('#result').html(data);
-				   }
-				  });
-				 }
-				 $('#search_text').keyup(function(){
-				  var search = $(this).val();
-				  if(search != '')
-				  {
-				   load_data(search);
-				  }
-				  else
-				  {
-				   load_data();
-				  }
-				 });
-				});
-</script>

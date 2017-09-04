@@ -10,7 +10,7 @@
 		<script src="js/wb.carousel.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/npm.js"></script>
-
+	
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
    		<link href="css/bootstrap.min.css" rel="stylesheet">
    		<script src="js/bootstrap.min.js"></script>
@@ -89,10 +89,9 @@ div#myDIV
 			            <li class="breadcrumb-item"><?php echo $_GET['location'] ?></li>
 
 			         </ol>
-
-					<div id="result" name="result">
-						<!-- This Div is responsible for displaying the employee directory table -->
-					</div> 
+			        <div id="pagination_data">
+			        		
+					<div>
 				</div>
 			</div>	
 		</div>
@@ -103,37 +102,36 @@ div#myDIV
 <br><br><br><br>
 
 	<?php include "footer.php"; ?>
+	<form>
+		<input type="hidden" value="<?php echo $_GET['location'];?>" name="location" id="location">
+
+	</form>
 </body>
 </html>
-<?php echo json_encode($_GET['location']) ?>
+
 <script>
-				$(document).ready(function(){
+$(document).ready(function(){ 
+      load_data(); 
+      function load_data(page, location)  
+      {
+      	var location = document.getElementById('location').value;
+           $.ajax({   
+           		url: "location_sort.php",
+                method:"POST",  
+                data:{page:page,
+                	  location:location
+                	 },  
+                success:function(data){  
+                     $('#pagination_data').html(data); 
 
-				 load_data();
+                   
+                }  
+           })  
+      } 
+      $(document).on('click', '.pagination_link', function(){  
+           var page = $(this).attr("id");  
+           load_data(page);  
+      });  
+ });  
 
-				 function load_data(query)
-				 {
-				  $.ajax({
-				   url:"fetch_sort.php",
-				   method:"POST",
-				   dataType: "json",
-				   data:{query:query},
-				   success:function(data)
-				   {
-				    $('#result').html(data);
-				   }
-				  });
-				 }
-				 $('#search_text').keyup(function(){
-				  var search = $(this).val();
-				  if(search != '')
-				  {
-				   load_data(search);
-				  }
-				  else
-				  {
-				   load_data();
-				  }
-				 });
-				});
 </script>

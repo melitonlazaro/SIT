@@ -26,20 +26,20 @@ session_start();
         height: 350px;
         border-radius: 10px;  
         padding:40px;
+        padding-top: 20px;
       }
-      body
-      {
-        background-color: #e7f3f9;
-      }
+     
       label
       {
-        font-family: Code Light;
-        font-size: 25px;
+        font-family: times;
+        font-size: 20px;
+        color: #323232;
       }
       span
       {
         vertical-align: middle;
       }
+
       </style>
 
 </head>
@@ -47,6 +47,10 @@ session_start();
   <br><br><br><br><br><br><br>
   <center>
   <div class="container">
+    <img src="bannerlogo1.jpg">
+    <br>
+    <h2>I.T Department</h2>
+    <br>
     <div id="logincontainer">
      
       <center>
