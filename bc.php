@@ -24,7 +24,9 @@ if( isset($_GET['action']) ){
 		case 'news_list'	: news_list(); break;
 		case 'show_news'	: show_news(); break; 
 		case 'searchnews'	: searchnews(); break;
-
+		case 'sort_department'	: sort_department(); break;
+		case 'search_employee_name'	: search_employee_name(); break;
+		case 'edit_employee_record' : edit_employee_record(); break;
 		default: index();
 	}
 }
@@ -285,20 +287,39 @@ function sort_department()
 	$count_department = count_department();
 	$count_location = count_location();
 	$result_sort_location = sort_departments();
-	include "ergoemployee_sort_employee.php";
+	include "ergoemployee_sort_department.php";
 
 }
 
-function search_directory()
+function search_employee_name()
 {
-	 if(isset($count_location)) 
-	 {
-	 	include "ajaxdelete.php";
-	 }
-	 else
-	 {
-	 	die();
-	 }
+	include "models/backend_model.php";
+	$count_department = count_department();
+	$count_location = count_location(); 
+	$result_search = search_employee_names();
+	$search = $_POST["search_employee"];
+	include "ergoemployee.php";
+}
+
+function edit_employee_record()
+{
+	include "models/backend_model.php";
+	$edit = admin_edit_employee_record();
+	if($edit)
+	{
+		header("Location: http://localhost/SIT-branch3/bc.php?action=manage_employee");
+
+	}
+	else
+	{
+		die();
+	}
+}
+
+function try_form()
+{
+	include "models/backend_model.php";
+	$result = try_insert_form();
 }
 
 ?>

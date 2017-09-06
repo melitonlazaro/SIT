@@ -766,7 +766,7 @@ function sort_departments()
 {
 	include("config.inc.php");
 	$conn = mysqli_connect("localhost","root","","ojt");
-	$location = $_GET['deparment'];
+	$location = $_GET['department'];
 	$sql = "SELECT * FROM employee WHERE `location` = '$location' ";
 	$query = mysqli_query($conn, $sql);
 	$record = array();
@@ -788,6 +788,84 @@ function sort_departments()
 		while($myrow = mysqli_fetch_array($query));
 	}
 	return $record;
+}
+
+function search_employee_names()
+{
+	$conn = mysqli_connect("localhost","root","","ojt");
+
+
+	if( mysqli_connect_errno($conn)){
+		echo "Error connecting to MySQL server!";
+	}
+
+	$search = $_POST["search_employee"];
+
+	$query = "SELECT * FROM employee
+	 WHERE first_name LIKE '%".$search."%'
+	  OR last_name LIKE '%".$search."%'
+	";
+	$result = mysqli_query($conn, $query);
+
+	$record = array();
+	if($myrow = mysqli_fetch_array($result))
+	{
+		do
+		{
+			$info = array();
+			$info["employee_id"] = $myrow["employee_id"];
+			$info["first_name"] = $myrow["first_name"];
+			$info["last_name"] = $myrow["last_name"];
+			$info["department"] = $myrow["department"];
+			$info["location"] = $myrow["location"];
+			$info["directory"] = $myrow["directory"];
+			$info["email"] = $myrow["email"];
+			$info["status"] = $myrow["status"];
+			$record[] = $info;
+
+		}
+		while($myrow = mysqli_fetch_array($result));
+	}
+	// print_r($record);
+	return $record;
+}
+
+function admin_edit_employee_record()
+{
+	$conn = mysqli_connect('localhost', 'root', '', 'ojt');
+	if( mysqli_connect_errno($conn)){
+		echo "Error connecting to MySQL server!";
+	}
+
+	$employee_id = $_POST["employee_id"];
+	$first_name = $_POST["first_name"];
+	$last_name = $_POST["last_name"];
+	$department = $_POST["department"];
+	$location = $_POST["location"];
+	$directory = $_POST["directory"];
+	$email = $_POST["email"];
+	$status = $_POST["status"];
+	
+	$sql = "UPDATE employee SET `first_name`='$first_name', `last_name`='$last_name', `department`='$department', `location`='$location', `directory`='$directory', `email`='$email', `status`='$status' WHERE `employee_id`='$employee_id' ";
+	$query = mysqli_query($conn, $sql);
+	if($query)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+function try_insert_form()
+{
+	$conn = mysqli_connect('localhost', 'root', '', 'ojt');
+	if( mysqli_connect_errno($conn)){
+		echo "Error connecting to MySQL server!";
+	}
+	$value = $_POST["try"];
+	$query = "INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `reg_date`) VALUES (NULL, '$value', '$value', '$value', '$value', '$value');";
+	$result = mysqli_query($conn, $query);	
 }
 //SELECT DISTINCT(department), count(*) FROM `employee` GROUP BY department
 ?>

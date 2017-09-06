@@ -15,9 +15,9 @@
            
 
 
-           <div class="container">  
-           
-                    		<h1>I.T Daily Log</h1>
+           <div class="container-fluid ">  
+                
+              <h1><i> <span class="glyphicon glyphicon-list-alt"></span></i>&nbspI.T Daily Log</h1>
                     		<br>
 
                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Add Ticket</button>

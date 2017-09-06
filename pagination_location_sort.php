@@ -1,3 +1,15 @@
+<html>
+<head>
+	<style>
+	 #tablehead
+    {
+      background-color: #343d46;
+      color: white;
+    }
+
+	</style>
+</head>
+
 <?php  //pagination.php  
 							 $connect = mysqli_connect("localhost", "root", "", "ojt");  
 							 $record_per_page = 1;  

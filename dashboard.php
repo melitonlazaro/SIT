@@ -1,4 +1,4 @@
-<?php 
+  <?php 
 //index.php
 $connect = mysqli_connect("localhost", "root", "", "ojt");
 $query = "SELECT COUNT(1) AS ticket, DATE(date) as date FROM daily_log WHERE date between '2017-07-01' and '2017-08-30' GROUP BY DATE(date) LIMIT 0 , 30";
@@ -264,9 +264,9 @@ $chart_data = substr($chart_data, 0, -2);
             <td>
             <div class="btn-group" role="group" aria-label="...">
 
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmmodal-'.$r['ticket_id'].'"><span class="glyphicon glyphicon-ok"></span></button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confirmmodal-'.$r['ticket_id'].'" data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-ok"></span></button>
             <button type="button" name="delete" id="'.$r['ticket_id'].'" class=" delete btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-
+            </div>
             <div id="confirmmodal-'.$r['ticket_id'].'" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="editLabel">
                 <div class="modal-admin" role="document">
                     <div class="modal-content" style="width:70%; margin:auto;">
@@ -314,7 +314,7 @@ $chart_data = substr($chart_data, 0, -2);
 
 
                                 <input type="hidden" value="'.$r['ticket_id'].'" name="ticket_id" id="id-'.$r['ticket_id'].'">
-                                <div class="form-group">
+                                <div class="form-group">  
                                     <label for="employee">Employee Name</label>
                                      <input type="text" class="form-control" id="employee-'.$r['ticket_id'].'" value="'.$r['name'].'" name="name">
                                 </div>

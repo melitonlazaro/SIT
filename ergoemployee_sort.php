@@ -71,7 +71,7 @@ div#myDIV
 							echo '<p id="list_header"> Departments </p>';
 							 foreach ($count_department as $c) 
 							{
-								echo '<a href="bc.php?action=manage_employees?department='.$c["department"].' "> ';
+								echo '<a href="bc.php?department='.$c["department"].' "> ';
 								echo '<p>'.$c["department"].'('.$c["employee"].')</p></a>';
 							} 
 						?>
@@ -80,32 +80,84 @@ div#myDIV
 				</div>
 				<div class="col-md-10" >
 					<div class="form-group" >
-						
-							<span class="input-group-btn" >
-							<input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search by First Name or Last Name">
+							<form class="form-inline" method="POST" action="bc.php?action=search_employee_name">
+								<div class="form-group">
+									<input type="text" name="search_employee" id="search_text" class="form-control" placeholder="Search by name">
+								</div>
+								<div class="form-group">
+									<input type="submit" value="search" class="form-control">
+								</div>
+							</form>
 					</div>	
 					<ol class="breadcrumb">
 			            <li class="breadcrumb-item"><a href="bc.php?action=ergoemployee">All Employee</a></li>
 			            <li class="breadcrumb-item"><?php echo $_GET['location'] ?></li>
 
 			         </ol>
-			        <div id="pagination_data">
-			        		
-					<div>
+			        <?php 
+						if(isset($result_search)) 
+							{
+								if(isset($search))
+								{
+								    echo  '
+				                            <div class="alert alert-info" role="alert">
+				                            You are searching for the Keyword <strong><i>"'.$search.'"</i></strong>
+				                            </div>
+				                            <br>
+				                          ';
+		                        }
+								echo '
+										<table class="table table-bordered table-hover">  
+								           <tr id="tablehead">  
+								              <th>First Name</th>
+								              <th>Last Name</th>
+								              <th>Department</th>
+								              <th>Location</th>
+								              <th>Local Directory</th>
+								              <th colspan="2">Email</th>          
+								              <th>Status</th>
+								            </tr>  
+									';
+								foreach ($result_search as $rs) 
+								{
+									echo '
+												<tr>  
+								              <td>'.$rs["first_name"].'</td>
+								              <td>'.$rs["last_name"].'</td>
+								              <td>'.$rs["department"].'</td>
+								              <td>'.$rs["location"].'</td>
+								              <td>'.$rs["directory"].'</td>
+								              <td>'.$rs["email"].'</td>
+								              <td><a href="mailto: '.$rs["email"].' " ><span class="glyphicon glyphicon-envelope"></a></td>
+								              <td>'.$rs["status"].'</td>
+								           </tr>  
+										';	
+								}
+								echo '</table>';
+							}
+						else
+						{
+							echo '
+									<div id="pagination_data" name="result">
+										<!-- This Div is responsible for displaying the employee directory table -->
+									</div> 
+								 ';
+						}
+					?>	
 				</div>
 			</div>	
 		</div>
 	</div>
 	
-	
+	<form>
+		<input type="hidden" value="<?php echo $_GET['location'];?>" name="location" id="location">
+
+	</form>	
 <br><br><br><br>
 <br><br><br><br>
 
 	<?php include "footer.php"; ?>
-	<form>
-		<input type="hidden" value="<?php echo $_GET['location'];?>" name="location" id="location">
 
-	</form>
 </body>
 </html>
 
@@ -116,7 +168,7 @@ $(document).ready(function(){
       {
       	var location = document.getElementById('location').value;
            $.ajax({   
-           		url: "location_sort.php",
+           		url: "pagination_location_sort.php",
                 method:"POST",  
                 data:{page:page,
                 	  location:location
