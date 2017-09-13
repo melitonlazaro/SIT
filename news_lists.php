@@ -11,7 +11,6 @@
 		<script src="js/wb.carousel.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/npm.js"></script>
-		<script src="js/pagination_news.js"></script>
   		<link rel="shortcut icon" href="favicon.png">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
    		<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -64,9 +63,31 @@
 			</form>
 		</div>
 	
-		<div id="pagination_data">
+		<div id="news">
 		
 		</div>
 	</div>
 </body>
 </html>
+<script type="text/javascript">
+
+ $(document).ready(function(){  
+      load_data();  
+      function load_data(page)  
+      {  
+           $.ajax({  
+                url:"pagination_news.php",  
+                method:"POST",  
+                data:{page:page},  
+                success:function(data){  
+                     $('#news').html(data);  
+                }  
+           })  
+      }  
+      $(document).on('click', '.pagination_link', function(){  
+           var page = $(this).attr("id");  
+           load_data(page);  
+      });  
+ });  
+
+</script>

@@ -857,15 +857,29 @@ function admin_edit_employee_record()
 		return FALSE;
 	}
 }
-function try_insert_form()
+function add_new_employee_record_model()
 {
 	$conn = mysqli_connect('localhost', 'root', '', 'ojt');
 	if( mysqli_connect_errno($conn)){
 		echo "Error connecting to MySQL server!";
 	}
-	$value = $_POST["try"];
-	$query = "INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `reg_date`) VALUES (NULL, '$value', '$value', '$value', '$value', '$value');";
+	$first_name = $_POST["first_name"];
+	$last_name = $_POST["last_name"];
+	$department = $_POST["department"];
+	$location = $_POST["location"];
+	$directory = $_POST["directory"];
+	$email = $_POST["email"];
+	$status = $_POST["status"];
+	$query = "INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `department`, `location`, `directory`, `email`, `status`) VALUES (NULL, '$first_name', '$last_name', '$department', '$location', '$directory', '$email', '$status');";
 	$result = mysqli_query($conn, $query);	
+	if($result)
+	{
+		return TRUE;
+	}
+	else
+	{
+		echo mysqli_error();
+	}
 }
 //SELECT DISTINCT(department), count(*) FROM `employee` GROUP BY department
 ?>

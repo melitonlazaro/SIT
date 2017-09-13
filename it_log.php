@@ -20,65 +20,66 @@
               <h1><i> <span class="glyphicon glyphicon-list-alt"></span></i>&nbspI.T Daily Log</h1>
                     		<br>
 
-                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Add Ticket</button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Add Ticket</button>
                              <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                                <div class="modal-dialog modal-lg" role="document">
                                  <div class="modal-content">
                                    <div class="modal-header">
                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                      <h4 class="modal-title" id="addLabel">Add IT Log</h4>
-                                   </div>
-                                    <form action="bc.php?action=addissue" method="POST">
+                                   </div>                            <form action="bc.php?action=addissue" method="POST">
                                   <div class="modal-body">
                          
-                                       <div class="form-group">
+                                        <div class="form-group">
                                          <label for="employee">Employee Name</label>
                                          <input type="text" class="form-control" id="employee" placeholder="employee" name="employee">
                                         </div>
-                                       <div class="form-group">
-                                         <label for="conflict">Issue</label>
-                                         <input type="text" class="form-control" id="conflict" placeholder="conflict" name="conflict">
-                                       </div>
-                                       <div class="form-group">
+                                        <div class="form-group">
+                                         <label for="conflict">Technical Concern</label>
+                                         <input type="text" class="form-control" id="conflict" placeholder="Technical Concern" name="conflict">
+                                        </div>
+                                        <div class="form-group">
                                          <label for="remarks">Remarks</label>
                                          <input type="text" class="form-control" id="remarks" placeholder="remarks" name="remarks">
-                                       </div>
-                                       <div class="form-group">
-                                          <label for="tech">Tech</label>
-                                          <input type="text" class="form-control" id="tech" placeholder="tech" name="tech">
-                                       </div>
-                       
-                                       <div class="row">
-                                             <div class="col-xs-5">
-                                                <div class="form-group">
-                                                   <label for="department">Department</label>
-                                                <select class="selectpicker form-control" id="department" name="department" placeholder="">
-                                                   <optgroup label="Department"></optgroup>
-                                                   <option></option>
-                                                   <option>IT Department</option>
-                                                   <option>Marketing</option>
-                                                   <option>Sales</option>
-                                                   <option>Customer Service</option>
-                                                   <option>Human Resource</option>
-                                                   <option>Treasury</option>
-                                                </select>
-                                               </div>
-                                             </div>
-                                       </div>
-                       
-                                       <div class="row">
-                                         <div class="col-xs-5">
-                                           <div class="form-group">
-                                             <label for="status">Status</label>
-                                             <select class="selectpicker form-control" id="status" name="status" >
-                                               <optgroup label="Status"></optgroup>
-                                               <option>Complete</option>
-                                               <option>Pending</option>
-                                               <option>Incomplete</option>
-                                             </select>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-4">
+                                            <div class="form-group">
+                                              <label for="tech">Tech</label>
+                                              <select class="selectpicker form-control" id="tech" name="tech">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-4">
+                                            <div class="form-group">
+                                               <label for="department">Department</label>
+                                            <select class="selectpicker form-control" id="department" name="department" placeholder="">
+                                               <optgroup label="Department"></optgroup>
+                                               <option></option>
+                                               <option>IT Department</option>
+                                               <option>Marketing</option>
+                                               <option>Sales</option>
+                                               <option>Customer Service</option>
+                                               <option>Human Resource</option>
+                                               <option>Treasury</option>
+                                            </select>
                                            </div>
-                                         </div>
-                                       </div>
+                                          </div>
+                                          <div class="col-md-4">
+                                             <div class="form-group">
+                                              <label for="status">Status</label>
+                                              <select class="selectpicker form-control" id="status" name="status" >
+                                                <optgroup label="Status"></optgroup>
+                                                <option>Complete</option>
+                                                <option>Pending</option>
+                                                <option>Incomplete</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
                                   </div>
 
                            <div class="modal-footer">
@@ -107,12 +108,12 @@
                <form method="POST" action="bc.php?action=logsort">
                   <div class="form-group">
                      <label for="from_sort">From:</label>
-                     <input type="date" name="fromsort" class="form-control" id="from_sort" value="<?php echo isset($_POST["fromsort"]) ? $_POST["fromsort"] : '';?>">
+                     <input type="date" name="fromsort" class="form-control" id="from_sort" value="<?php echo isset($_POST["fromsort"]) ? $_POST["fromsort"] : '';?>" required>
 
                   </div>
                   <div class="form-group">
                         <label for="tosort">TO:</label>
-                        <input type="date" class="form-control" name="tosort" id="tosort" value="<?php echo isset($_POST["tosort"]) ? $_POST["tosort"] : '';?>">
+                        <input type="date" class="form-control" name="tosort" id="tosort" value="<?php echo isset($_POST["tosort"]) ? $_POST["tosort"] : '';?>" required>
                   </div>
                   <div class="form-group">
                         <button type="submit" name="sort" class="btn btn-default"><span class="glyphicon glyphicon-calendar"></button>

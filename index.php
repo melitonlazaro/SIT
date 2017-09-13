@@ -1,4 +1,4 @@
-
+ 
 <!DOCTYPE html>
 <html>
 	<head>
@@ -41,43 +41,13 @@
 		min-height: 400px;
 		
 	}
-	#jumbobutton
-	{
-		position:absolute;
-		bottom:15%;
-		right:50%;
-
-	}
-	#jumbobutton1
-	{
-		position:absolute;
-		bottom:15%;
-		right:48%;
-	}
 	
 	h1#title
 	{
 		font-family: Bebas Neue Regular;
 		font-size: 50px;
 	}
-	.card {
-	    /* Add shadows to create the "card" effect */
-	    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-	    transition: 0.3s;
-	    border: 1px solid #56a61e;
-	}
-	/* On mouse-over, add a deeper shadow */
-	.card:hover {
-	    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-	}
-
-	/* Add some padding inside the card container */
 	
-	.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 5px; /* 5px rounded corners */
-	}
 	#panel-heading
 	{
 		background-color: #54a51c;
@@ -187,9 +157,6 @@
 		</div>
 	</div>	
 		<a href="bc.php?action=news_list" id="view_more"><button class="btn btn-info pull-right">View More </button></a>
-
-
-
 		<br><br><br><br><br>
 
 

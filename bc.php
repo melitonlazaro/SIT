@@ -27,6 +27,9 @@ if( isset($_GET['action']) ){
 		case 'sort_department'	: sort_department(); break;
 		case 'search_employee_name'	: search_employee_name(); break;
 		case 'edit_employee_record' : edit_employee_record(); break;
+		case 'add_new_employee_record'	: add_new_employee_record(); break;
+		case 'ticket_report_pdf'	: ticket_report_pdf(); break;
+		case 'send_mail_to_all' 	: send_mail_to_all(); break;
 		default: index();
 	}
 }
@@ -137,7 +140,7 @@ function addissue() //add tech concern from admin panel
 	$result = AddIssue_Mdl();
 	if($result)
 	{
-		tickets();
+		header("Location: http://localhost/SIT-branch3/bc.php?action=tickets");
 	}
 	else
 	{
@@ -231,6 +234,7 @@ function ergoemployee() //Employee Directory
 	include "models/backend_model.php";
 	$count_department = count_department();
 	$count_location = count_location();
+	$employee_count = count_employee();
 	include "ergoemployee.php";
 }
 
@@ -239,6 +243,7 @@ function publishnews() //publish news/announcements from IT Department
 {
 	include "models/backend_model.php";
 	$result = publish_news();
+	
 	if($result)
 	{
 		include "news.php";
@@ -278,6 +283,7 @@ function sort_location()
 	$count_department = count_department();
 	$count_location = count_location();
 	$result_sort_location = sort_locations();
+	$employee_count = count_employee();
 	include "ergoemployee_sort.php";
 }
 
@@ -287,6 +293,7 @@ function sort_department()
 	$count_department = count_department();
 	$count_location = count_location();
 	$result_sort_location = sort_departments();
+	$employee_count = count_employee();
 	include "ergoemployee_sort_department.php";
 
 }
@@ -297,6 +304,7 @@ function search_employee_name()
 	$count_department = count_department();
 	$count_location = count_location(); 
 	$result_search = search_employee_names();
+	$employee_count = count_employee();
 	$search = $_POST["search_employee"];
 	include "ergoemployee.php";
 }
@@ -316,10 +324,31 @@ function edit_employee_record()
 	}
 }
 
-function try_form()
+function add_new_employee_record()
 {
 	include "models/backend_model.php";
-	$result = try_insert_form();
+	$result = add_new_employee_record_model();
+	
+	if($result)
+	{
+		header("Location: http://localhost/SIT-branch3/bc.php?action=manage_employee");
+	}
+	else
+	{
+		echo mysqli_error();
+	}
+}
+
+function ticket_report_pdf()
+{
+	include "models/backend_model.php";
+	$result = show_issues();
+	include "ticket_report_pdf.php";
+}
+
+function send_mail_to_all()
+{
+	include "send_mail_to_all.php";
 }
 
 ?>

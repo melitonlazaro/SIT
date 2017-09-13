@@ -62,6 +62,7 @@ div#myDIV
 					</ol>
 						<?php 
 							echo '<p id="list_header"> Location </p>';
+							echo '<a href="bc.php?action=ergoemployee"><p>All ('.$employee_count.')</p></a>';
 							foreach ($count_location as $cl) {
 								echo '<a href="bc.php?location='.$cl["location"].'">
 									<p>'.$cl["location"].' ('.$cl["employee"].')</p></a>';
@@ -69,6 +70,7 @@ div#myDIV
 						 ?>
 						<?php
 							echo '<p id="list_header"> Departments </p>';
+							echo '<a href="bc.php?action=ergoemployee"><p>All('.$employee_count.')</p></a>';
 							 foreach ($count_department as $c) 
 							{
 								echo '<a href="bc.php?department='.$c["department"].' "> ';

@@ -110,11 +110,11 @@
   	<p class="closebtn" onclick="closeNav()" style="cursor:pointer">&times;</p>
   </div>
   <a href="bc.php?action=dashboard"><span class="glyphicon glyphicon-dashboard"></span>&nbsp Dashboard</a>
-  <a href="bc.php?action=tickets" ><span class="glyphicon glyphicon-wrench"></span>&nbsp Technical Support</a>
+  <a href="bc.php?action=tickets" ><span class="glyphicon glyphicon-list-alt"></span>&nbsp Technical Support</a>
   <a href="bc.php?action=manage_employee"><span class="glyphicon glyphicon-user"></span>&nbsp Employee Portal</a>
   <a href="#" ><span class="glyphicon glyphicon-list-alt"></span>&nbsp Inventory</a>
   <a href="publish_news.php"><span class="glyphicon glyphicon-comment"></span>&nbsp News</a>
-  <a href="#"><span class="glyphicon glyphicon-file"></span>&nbsp Report</a>
+  <a href="report.php"><span class="glyphicon glyphicon-file"></span>&nbsp Report</a>
   <a href="#" ><span class="glyphicon glyphicon-cog"></span>&nbsp Settings</a>
   <a href="bc.php?action=logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp Logout
     <p>&nbsp&nbsp (<?php echo $_SESSION['username']; ?>) </p>

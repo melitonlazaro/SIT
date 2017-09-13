@@ -22,7 +22,7 @@
            
 
 
-           <div class="container">  
+           <div class="container-fluid">  
            
                     		<h1>I.T Daily Log</h1>
                     		<br>

@@ -82,8 +82,7 @@
                       
                       <center>
                       <input type="submit" class="btn btn-success" value="Publish">  
-
-
+                      </center>
                     </form>
                   </div>
                 </div>

@@ -8,7 +8,7 @@
                 method:"POST",  
                 data:{page:page},  
                 success:function(data){  
-                     $('#pagination_data').html(data);  
+                     $('#news').html(data);  
                 }  
            })  
       }  

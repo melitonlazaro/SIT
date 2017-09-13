@@ -7,7 +7,7 @@ $setSql = "SELECT * FROM `daily_log`";
 $setRec = mysqli_query($conn,$setSql);  
 
 $columnHeader = '';  
-$columnHeader = "id" . "\t" . "Employee Name" . "\t" . "Department" . "\t" . "conflict" . "\t" . "remarks" . "\t" . "status" . "\t" . "tech" . "\t" . "date" . "\t" . "time";  
+$columnHeader = "Ticket Id" . "\t" . "Employee Name" . "\t" . "Department" . "\t" . "Concern" . "\t" . "Remarks" . "\t" . "Status" . "\t" . "Tech" . "\t" . "Date" . "\t" . "Time";  
   
 $setData = '';  
   
