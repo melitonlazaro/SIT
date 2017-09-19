@@ -243,14 +243,18 @@ function publishnews() //publish news/announcements from IT Department
 {
 	include "models/backend_model.php";
 	$result = publish_news();
-	
 	if($result)
 	{
-		include "news.php";
+		$details = send_email_list();
+		$email_result = send_mail_to_all($details);
+	}
+	if($email_result)
+	{
+		echo "<meta http-equiv='Refresh' content='.5; URL=bc.php?action=dashboard'>";
 	}
 	else
 	{
-		include "dashboard.php";
+		die("fATAL ErRRor");
 	}
 }
 
@@ -346,9 +350,25 @@ function ticket_report_pdf()
 	include "ticket_report_pdf.php";
 }
 
-function send_mail_to_all()
+function send_mail_to_all($details)
 {
-	include "send_mail_to_all.php";
+	$send = $details;
+	$result = include "send_mail_to_all.php";
+	if($result)
+	{
+		return TRUE;
+	}
+	else
+	{
+		die("ERROR in Sending Emails");
+	}
+}
+
+function show_news()
+{
+	include "models/backend_model.php";
+	$result = get_all_news();
+	include "news.php";
 }
 
 ?>

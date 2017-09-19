@@ -881,5 +881,55 @@ function add_new_employee_record_model()
 		echo mysqli_error();
 	}
 }
+
+function send_email_list()
+{
+	$conn = mysqli_connect("localhost", "root", "", "ojt");
+	$query = "SELECT employee_id, first_name, last_name, email FROM `employee`";
+	$result = mysqli_query($conn, $query);
+	$record = array();
+	if($myrow = mysqli_fetch_array($result))
+	{
+		do
+		{
+			$info = array();
+			$info['employee_id'] = $myrow['employee_id'];
+			$info['first_name'] = $myrow['first_name'];
+			$info['last_name'] = $myrow['last_name'];
+			$info['email'] = $myrow['email'];
+			$record[] = $info; 
+		}
+		while($myrow = mysqli_fetch_array($result));
+		return $record;
+	}
+}
+
+function get_all_news()
+{
+	$conn = mysqli_connect("localhost", "root", "", "ojt");
+	$query = "SELECT * FROM announcement";
+	$result = mysqli_query($conn, $query);
+	$record = array();
+	if($myrow = mysqli_fetch_array($result))
+	{
+		do
+		{
+		$info = array();
+			$info["announcement_id"] = $myrow["announcement_id"];
+			$info["title"] = $myrow["title"];
+			$info["lead"] = $myrow["lead"];
+			$info["author"] = $myrow["author"];
+			$info["date_published"] = $myrow["date_published"];
+			$info["time_published"] = $myrow["time_published"];
+
+			$record[] = $info;
+		}
+		while($myrow = mysqli_fetch_array($result));
+		return $record;
+
+	}
+
+}
+
 //SELECT DISTINCT(department), count(*) FROM `employee` GROUP BY department
 ?>

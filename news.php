@@ -1,4 +1,5 @@
-<<html>
+
+<html>
 <head>
 	<title></title>
 	<meta charset="utf-8">
@@ -18,37 +19,53 @@
     	background-color: #e7f3f9;
     	border-radius:10px;
   	}
+  	#tablehead
+    {
+      background-color: #343d46;
+      color: white;
+    }
 
 </style>
 </head>
 <body>
 	<?php include "admin_nav.php"; ?>
 	<br><br><br>
-	<div class="container" id="news_container">
-		<h1> <span class="glyphicon glyphicon-comment" style="opacity:0.5">&nbsp</span>News and Announcements</h1>
+
+	<div class="container-fluid" id="news_container">
+		<br>
+		<h1> <span class="glyphicon glyphicon-comment" style="opacity:0.5"></span>&nbsp;News and Announcements</h1>
 		<br><br>
-		<div class="row">
-
-			<div class="col-md-4 pull-right">
-				<div class="panel panel-default">
-					<div class="panel-body" id="news_number">
-						Number of News and Announcements this Month (static)
-					</div>
-					<div class="panel-footer" id="news_number">
-						Number of News and Announcements
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<div class="container">
-			*table for news headlines, lead, date and time of published, author
-
-		</div>
-
+		<button class="btn btn-info">Publish News</button>
+		<br><br>
+			<table class="table table-bordered table-hover">  
+                <tr id="tablehead">  
+	            	<th>Announcement ID</th>
+		            <th>Title</th>
+		            <th>Author</th>
+		            <th>Date Published</th>
+		            <th>Time Published</th>          
+		            <th>Actions</th>
+	            </tr>
+	            <?php 
+	            	foreach ($result as $r) 
+	            	{
+	            		echo 
+	            		'
+	            			<tr>
+	            			<td>'.$r['announcement_id'].'</td>
+	            			<td>'.$r['title'].'</td>
+	            			<td>'.$r['author'].'</td>
+	            			<td>'.$r['date_published'].'</td>
+	            			<td>'.$r['time_published'].'</td>
+	            			<td>Actions up here</td>
+	            			</tr>
+	            		';
+	            	}
+	             ?>
+			</table>
 	</div>
-
-
+<br><br><br>
+<?php include "diggpagination.php"; ?>
 
 </body>
 </html>

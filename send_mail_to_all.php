@@ -1,4 +1,6 @@
 <?php
+
+print_r($send);
 /**
  * This example shows making an SMTP connection with authentication.
  */
@@ -35,8 +37,10 @@ $mail->setFrom('itsupport@ergo.com.ph', 'ERGO IT Support');
 //Set an alternative reply-to address
 $mail->addReplyTo('itsupport@ergo.com.ph', 'ERGO IT Support');
 //Set who the message is to be sent to
-$mail->addAddress('melitonlazaro1@gmail.com', 'Meliton Lazaro');
-$mail->addAddress('melitondiego.lazaro@tup.edu.ph', 'Meliton Lazaro');
+foreach($send as $s)
+{
+	$mail->addAddress(' '.$s["email"].' ', ' '.$s["first_name"].' '.$s["last_name"].' ');
+}
 //Set the subject line
 $mail->Subject = 'PHPMailer SMTP test';
 //Read an HTML message body from an external file, convert referenced images to embedded,
@@ -52,4 +56,10 @@ if (!$mail->send()) {
     echo "Mailer Error: " . $mail->ErrorInfo;
 } else {
     echo "Message sent!";
+    echo '
+   			<script>
+				alert("Emails were successfuly sent.");
+			</script>
+		 ';
+    return TRUE;
 }

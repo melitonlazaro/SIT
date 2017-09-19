@@ -262,7 +262,7 @@
 	 		<div class="row">
 	 			<div class="col-md-12">
 			 		<p class="content_sub_title1">Create Table</p>
-			 		<button class="btn btn-default buttons">table</button>
+			 		<button class="btn btn-default buttons">table</button>	<br><br>
 			 	</div>
 		
 			 	<div class="col-md-4">
