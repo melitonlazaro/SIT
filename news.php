@@ -65,7 +65,5 @@
 			</table>
 	</div>
 <br><br><br>
-<?php include "diggpagination.php"; ?>
-
 </body>
 </html>

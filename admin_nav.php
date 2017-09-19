@@ -113,7 +113,7 @@
   <a href="bc.php?action=tickets" ><span class="glyphicon glyphicon-list-alt"></span>&nbsp Technical Support</a>
   <a href="bc.php?action=manage_employee"><span class="glyphicon glyphicon-user"></span>&nbsp Employee Portal</a>
   <a href="#" ><span class="glyphicon glyphicon-list-alt"></span>&nbsp Inventory</a>
-  <a href="bc.php?action=show_news"><span class="glyphicon glyphicon-comment"></span>&nbsp News</a>
+  <a href="diggpagination.php?page=1"><span class="glyphicon glyphicon-comment"></span>&nbsp News</a>
   <a href="report.php"><span class="glyphicon glyphicon-file"></span>&nbsp Report</a>
   <a href="#" ><span class="glyphicon glyphicon-cog"></span>&nbsp Settings</a>
   <a href="bc.php?action=logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp Logout
