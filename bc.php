@@ -30,6 +30,9 @@ if( isset($_GET['action']) ){
 		case 'add_new_employee_record'	: add_new_employee_record(); break;
 		case 'ticket_report_pdf'	: ticket_report_pdf(); break;
 		case 'send_mail_to_all' 	: send_mail_to_all(); break;
+		case 'create_account'	: create_account(); break;
+		case 'change_password'	: change_password(); break;
+		case 'edit_news'	:	edit_news(); break;
 		default: index();
 	}
 }
@@ -71,6 +74,34 @@ function dashboard() //displays the dashboard for admin panel
 function faq() //displays the FAQs for technical concern
 {
 	include "faq.php";
+}
+
+function create_account()
+{
+	include "models/backend_model.php";
+	$result = create_new_account();
+	if($result)
+	{
+		header("Location: http://localhost/SIT-branch3/bc.php?action=dashboard");
+	}
+	else
+	{
+		echo 	'
+				<script>
+				alert("Registration Failed. Username already exists.");
+				</script>
+				';
+	}
+}
+
+function change_password()
+{
+	include "models/backend_model.php";
+	$result = change_user_password();
+	if($result)
+	{
+		echo "Success";
+	}
 }
 
 function login()
@@ -245,7 +276,6 @@ function publishnews() //publish news/announcements from IT Department
 	$result = publish_news();
 	if($result)
 	{
-		$details = send_email_list();
 		$email_result = send_mail_to_all($details);
 	}
 	if($email_result)
@@ -352,7 +382,6 @@ function ticket_report_pdf()
 
 function send_mail_to_all($details)
 {
-	$send = $details;
 	$result = include "send_mail_to_all.php";
 	if($result)
 	{
@@ -366,9 +395,21 @@ function send_mail_to_all($details)
 
 function show_news()
 {
-	include "models/backend_model.php";
-	$result = get_all_news();
 	include "news.php";
+}
+
+function edit_news()
+{
+	include "models/backend_model.php";
+	$result = edit_news_content();
+	if($result)
+	{
+		echo "<meta http-equiv='Refresh' content='.5; URL=news.php'>";
+	}
+	else
+	{
+		
+	}
 }
 
 ?>

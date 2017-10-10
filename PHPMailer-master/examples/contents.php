@@ -1,3 +1,24 @@
+<?php 
+	$conn = mysqli_connect("localhost", "root", "", "ojt");
+
+	$query = "SELECT * FROM announcement ORDER BY announcement_id DESC LIMIT 1";
+	$result = mysqli_query($conn, $query);
+
+	$record = array();
+	if( $myrow=mysqli_fetch_array($result) ){
+		do{
+			$info = array();
+			$info['announcement_id'] = $myrow['announcement_id'];
+			$info['author'] = $myrow['author'];
+			$info['date_published'] = $myrow['date_published'];
+			$info['time_published'] = $myrow['time_published'];
+			$info['title'] = $myrow['title'];
+			$info['lead'] = $myrow['lead'];
+			$record[] = $info;
+		}while($myrow=mysqli_fetch_array($result));
+	}
+?>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,11 +39,8 @@
 <div>
   <h1>New Announcement from IT-Department</h1>
   <div align="center">
-  	<h6>Good day!</h6>
-  	<br>
-  	<p>Visit the IT-Department Website to view the latest announcements! </p>
-  	<br><br>
-  	<p>Thank You!</p>
+  	<h4>Title:</h4><p> <?php echo $record['title']; ?> </p><br>
+  	<h4>Link:</h4><a href="http://localhost/SIT-branch3/bc.php?id=<?php echo $record['announcement_id'];?> ">Click here to view announcement</a>
   </div>
 
 </div>

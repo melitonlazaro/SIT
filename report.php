@@ -62,6 +62,44 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="jumbotron" id="jumbotron">
+			<h3><span class="glyphicon glyphicon-user"></span>&nbsp;Employee Directory Report</h3>
+			<br>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="container-fluid report_container">
+						<h4>Export to Excel</h4>
+						<br>
+						<h5>Report all Tickets</h5>
+						<a href="report_all_employee.php"><button class="btn btn-primary btn-block">Report all</button></a>
+						<br><hr><br>
+						<h5>Sort Tickets</h5>
+						<form action="report_sort.php" method="POST">
+							<div class="form-group">
+								<input type="date" name="sortfromreport" class="form-control" required="required">
+							</div>
+							<br>
+							<div class="form-group">
+								<input type="date" name="sorttoreport" class="form-control" required="required">
+							</div>
+							<br>
+							<button type="submit" class="btn btn-primary btn-block">Report through Sort</button>
+						</form>
+						<br><br>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="container-fluid report_container">
+						<h4>Export to PDF</h4>
+						<br>
+						<h5>Report all Tickets</h5>
+						<a href="ticket_report_pdf.php"><button class="btn btn-primary btn-block">Report all</button></a>
+						<br><hr><br>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </body>

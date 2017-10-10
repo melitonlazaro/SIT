@@ -117,7 +117,7 @@ session_start();
   <a href="#" ><span class="glyphicon glyphicon-list-alt"></span>&nbsp Inventory</a>
   <a href="bc.php?action=show_news"><span class="glyphicon glyphicon-comment"></span>&nbsp News</a>
   <a href="report.php"><span class="glyphicon glyphicon-file"></span>&nbsp Report</a>
-  <a href="#" ><span class="glyphicon glyphicon-cog"></span>&nbsp Settings</a>
+  <a href="settings.php" ><span class="glyphicon glyphicon-cog"></span>&nbsp Settings</a>
   <a href="bc.php?action=logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp Logout
     <p>&nbsp&nbsp (<?php echo $_SESSION['username']; ?>) </p>
   </a>

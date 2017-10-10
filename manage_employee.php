@@ -95,30 +95,15 @@
                   </div>   
                </form>
 
-               <form method="POST" >
-
-                  <div class="form-group">
-                    <label for="records">Records per page</label>
-                    <select class="form-control" name="records" id="records" onchange="this.form.submit()" value="<?php echo isset($_POST["records"]) ? $_POST["records"] : '';?>">
-                      <option>1</option>
-                      <option>5</option>
-                       <option>1</option>
-                      <option>10</option>
-                      <option>20</option>
-                      <option>50</option>
-                      <option>100</option>
-                      <option>200</option>
-                    </select>                    
-                  </div>
-               </form>
+              
          
         
             </div>
-            <br>
+            <br><br><br>
       <!--   <div class="table-responsive" id="pagination_data">
         	Div responsible for pagination of Employee Directory
         </div> -->
-                <?php
+        <?php
           /*
             Place code to connect to your DB here.
           */
@@ -151,6 +136,7 @@
 
           if(isset($_GET['page']))
           {
+            
             $page = $_GET['page'];
           }                 
           else
@@ -394,28 +380,7 @@
 
 </body>
 </html>
-<script type="text/javascript">
 
- $(document).ready(function(){  
-      load_data();  
-      function load_data(page)  
-      {  
-           $.ajax({  
-                url:"pagination_admin_directory.php",  
-                method:"POST",  
-                data:{page:page},  
-                success:function(data){  
-                     $('#pagination_data').html(data);  
-                }  
-           })  
-      }  
-      $(document).on('click', '.pagination_link', function(){  
-           var page = $(this).attr("id");  
-           load_data(page);  
-      });  
- });  
-
-</script>
 <script>
   $(function(){
     $(".delete").click(function(){

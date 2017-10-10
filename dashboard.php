@@ -1,7 +1,9 @@
   <?php 
 //index.php
 $connect = mysqli_connect("localhost", "root", "", "ojt");
-$query = "SELECT COUNT(1) AS ticket, DATE(date) as date FROM daily_log WHERE date between '2017-07-01' and '2017-08-30' GROUP BY DATE(date) LIMIT 0 , 30";
+$date1 = date('Y-m-01');
+$date2 = date('Y-m-31');
+$query = "SELECT COUNT(1) AS ticket, DATE(date) as date FROM daily_log WHERE date between '$date1' and '$date2' GROUP BY DATE(date) LIMIT 0 , 30";
 $result = mysqli_query($connect, $query);
 $chart_data = '';
 while($row = mysqli_fetch_array($result))

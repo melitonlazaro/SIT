@@ -94,6 +94,56 @@ function show_issues()
 	return $record;
 }
 
+function change_user_password()
+{
+	$conn = mysqli_connect("localhost", "root", "", "ojt");
+	$username = $_SESSION['username'];
+	$old_password = $_POST['old_password'];
+	$new_password = $_POST['new_password'];
+	$confirm_password = $_POST['confirm_password'];
+	if($new_password === $confirm_password)
+	{
+		die(mysqli_error($conn));
+	}
+	else
+	{
+		$query1 = "UPDATE user SET `password`='$new_password' WHERE `username`='$username' ";
+		$result = mysqli_query($conn, $query1);
+		if($result)
+		{
+			return TRUE;
+		}
+		else
+		{
+			die(mysqli_error($conn));
+		}
+	}
+}
+
+function create_new_account()
+{
+	$conn = mysqli_connect("localhost", "root", "", "ojt");
+	$username = $_POST['username'];
+	$password = $_POST['password'];
+	$first_name = $_POST['first_name'];
+	$last_name = $_POST['last_name'];
+	$reg_date = date('Y-m-d');
+
+	$query1 = "SELECT * FROM user WHERE `username`='$username'";
+	$result = mysqli_query($conn, $query1);
+	if(mysqli_num_rows($result) > 0)
+	{
+		return FALSE;
+	}
+	else
+	{
+		$query2 = "INSERT INTO user VALUES(NULL, '$username', '$password', '$first_name', '$last_name', '$reg_date'); ";
+		$result1 = mysqli_query($conn, $query2);
+		return FALSE;
+	}
+
+}
+
 function count_pending_ticket()
 {
 	$conn = mysqli_connect("localhost", "root", "", "ojt");
@@ -929,6 +979,29 @@ function get_all_news()
 
 	}
 
+}
+
+function edit_news_content()
+{
+	$id = $_POST['announcement_id'];
+	$title = $_POST['title'];
+	$lead = $_POST['lead'];
+	$content = $_POST['content'];
+
+	$conn = mysqli_connect("localhost", "root", "", "ojt");
+	$query = "UPDATE announcement SET `title`='$title', `lead`='$lead', `content`='$content' WHERE `announcement_id`='$id' ";
+	$result = mysqli_query($conn, $query);
+	if($result)
+	{
+			echo '<script language="javascript">';
+			echo 'alert("Successfully Edited!")';
+			echo '</script>';
+			return TRUE;
+	}
+	else
+	{
+		die(mysqli_error($conn));
+	}
 }
 
 //SELECT DISTINCT(department), count(*) FROM `employee` GROUP BY department

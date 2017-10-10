@@ -34,7 +34,8 @@
 			  <div class="modal-dialog modal-lg">
 			  		<div class="modal-content">
 					  	<div class="modal-header">
-					  		<h4>Publish News Guide</h4>
+					  		<h4>Publish News Guide
+					  	    <button type="button" class="close" data-dismiss="modal">&times;</button></h4>
 					  	</div>
 					    <div class="modal-body">
 					    	<ul class="list-unstyled">
